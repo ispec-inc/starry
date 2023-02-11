@@ -1,6 +1,6 @@
 {
   "tasks": {
     "run": "deno run -A index.ts",
-    "compile": "deno compile -A index.ts",
+    "compile": "deno compile -A --output starry index.ts",
   }
 }
