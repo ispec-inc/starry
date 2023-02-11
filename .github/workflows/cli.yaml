@@ -48,10 +48,10 @@ jobs:
       - { uses: actions/download-artifact@v3, with: { name: starry-aarch64-apple-darwin,      path: starry/ } }
 
       - name: Release
-        uses: fnkr/github-action-ghr@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          export VERSION=$(echo "$GITHUB_REF" | sed -e 's!refs/tags/!!')
+          curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" starry/
         env:
-          GHR_COMPRESS: xz
-          GHR_REPLACE: true
-          GHR_PATH: starry/
+          GHR_VERSION: v0.13.0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
