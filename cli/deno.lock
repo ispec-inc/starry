@@ -175,6 +175,7 @@
     "https://deno.land/x/outdent@v0.8.0/src/index.ts": "6dc3df4108d5d6fedcdb974844d321037ca81eaaa16be6073235ff3268841a22",
     "https://deno.land/x/url_join@1.0.0/mod.ts": "d3c7007e3ab15594e54d5b90dce623b3e274a726e0cdf57858e7ecab77a0166c",
     "https://deno.land/x/which@0.2.1/mod.ts": "2e076cb85aea9798662b355fb613d27eebcc78dfc8934ece4ae932f6303f6ca8",
-    "https://raw.githubusercontent.com/ispec-inc/starry/master/starry/cli/cmds/init.ts": "64924460a1c9dfc1472d2cf43679c826931aa84a37cfdbc35276b65ab9d33b62"
+    "https://raw.githubusercontent.com/ispec-inc/starry/master/starry/cli/cmds/init.ts": "64924460a1c9dfc1472d2cf43679c826931aa84a37cfdbc35276b65ab9d33b62",
+    "https://raw.githubusercontent.com/ispec-inc/starry/master/starry/cmds/add.ts": "f1a9d87a95dcb9b8882ab5efeae90898f5c44c0ca1879706f0c77181479f4d82"
   }
 }

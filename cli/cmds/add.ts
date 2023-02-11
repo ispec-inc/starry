@@ -18,7 +18,10 @@ export const Add = new Command()
 async function main() {
   const apiUrl = "https://api.github.com/repos/ispec-inc/starry/releases/latest"
   const response = await axiod.get(apiUrl)
-  const data = response.data.assets
+  const data = response.data.assets.filter((f: any) => {
+    return f.content_type === "application/zip"
+  })
+
   const names = data.map((asset: any) => {
     return asset.name.replace(".zip", "")
   })
