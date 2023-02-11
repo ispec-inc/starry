@@ -1,4 +1,4 @@
-name: Upload Release Archive
+name: Upload Release Cli
 
 on:
   push:
@@ -9,6 +9,12 @@ jobs:
   release:
     name: Release Packages
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - x86_64-unknown-linux-gnu
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
     steps:
       - uses: actions/checkout@v3
 
@@ -20,14 +26,14 @@ jobs:
       - name: Compile
         working-directory: cli
         run: |
-          deno task compile
+          deno compile -A --output starry index.ts --target ${{ matrix.target }}
 
       - name: Release
         working-directory: cli
         run: |
           export VERSION="0.1.0"
           curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
-          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" starry
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" starry-${{ matrix.target }}
         env:
           GHR_VERSION: v0.13.0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
