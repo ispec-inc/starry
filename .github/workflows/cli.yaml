@@ -26,7 +26,7 @@ jobs:
       - name: Compile
         working-directory: cli
         run: |
-          deno compile -A --output starry index.ts --target ${{ matrix.target }}
+          deno compile -A --output starry-${{ matrix.target }} index.ts --target ${{ matrix.target }}
 
       - name: Release
         working-directory: cli
