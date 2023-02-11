@@ -1,0 +1,50 @@
+name: Upload Release Archive
+
+on:
+  push:
+    branch:
+      - feature/release-ci
+    # tags:
+    #   - "v[0-9]+\\.[0-9]+\\.[0-9]+"
+
+jobs:
+  build:
+    name: Build Packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dir:
+          - api-rails-graphql
+          - front-next-apollo
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Archive Package
+        run: |
+          zip -r ${{ matrix.dir }}.zip ${{ matrix.dir }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.dir }}
+          path: package/${{ matrix.dir }}
+
+  release:
+    name: Release Packages
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v3
+
+      - { uses: actions/download-artifact@v3, with: { name: api-rails-graphql,   path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-next-apollo,   path: package/ } }
+
+      - name: Release
+        run: |
+          # export VERSION=$(echo "$GITHUB_REF" | sed -e 's!refs/tags/!!')
+          export VERSION="0.1.0"
+          curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" package/
+        env:
+          GHR_VERSION: v0.13.0
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
