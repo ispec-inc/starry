@@ -43,8 +43,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - { uses: actions/download-artifact@v3, with: { name: api-rails-graphql,   path: package/ } }
-      - { uses: actions/download-artifact@v3, with: { name: front-next-apollo,   path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: api-rails-graphql,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-next-apollo,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-nuxt,             path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-nuxt-apollo,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-nuxt-ssr,         path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-react-ionic,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-react-vite-relay, path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: infra-aws,              path: package/ } }
 
       - name: Release
         run: |
