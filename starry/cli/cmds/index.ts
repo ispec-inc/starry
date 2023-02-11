@@ -1,5 +1,5 @@
 import { Command } from "https://deno.land/x/cliffy@v0.25.7/command/mod.ts";
-import { Initialize } from "./initialize.ts"
+import { Initialize } from "https://raw.githubusercontent.com/ispec-inc/starry/master/starry/cli/cmds/init.ts"
 
 const VERSION = "0.1.0"
 
