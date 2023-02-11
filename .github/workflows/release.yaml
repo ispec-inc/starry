@@ -1,0 +1,62 @@
+name: Upload Release Archive
+
+on:
+  push:
+    tags:
+      - "v[0-9]+\\.[0-9]+\\.[0-9]+"
+
+jobs:
+  build:
+    name: Build Packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dir:
+          - api-rails-graphql
+          - front-next-apollo
+          - front-nuxt
+          - front-nuxt-apollo
+          - front-nuxt-ssr
+          - front-react-ionic
+          - front-react-vite-relay
+          - infra-aws
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Archive Package
+        run: |
+          zip -r ${{ matrix.dir }}.zip ${{ matrix.dir }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.dir }}
+          path: ${{ matrix.dir }}.zip
+          if-no-files-found: error
+
+  release:
+    name: Release Packages
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v3
+
+      - { uses: actions/download-artifact@v3, with: { name: api-rails-graphql,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-next-apollo,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-nuxt,             path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-nuxt-apollo,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-nuxt-ssr,         path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-react-ionic,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: front-react-vite-relay, path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: infra-aws,              path: package/ } }
+
+      - name: Release
+        run: |
+          export VERSION=$(echo "$GITHUB_REF" | sed -e 's!refs/tags/!!')
+          curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" package/
+        env:
+          GHR_VERSION: v0.13.0
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
