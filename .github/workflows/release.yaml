@@ -2,10 +2,8 @@ name: Upload Release Archive
 
 on:
   push:
-    # tags:
-    #   - "v[0-9]+\\.[0-9]+\\.[0-9]+"
-    branches:
-      - master
+    tags:
+      - "v[0-9]+\\.[0-9]+\\.[0-9]+"
 
 jobs:
   build:
@@ -56,8 +54,7 @@ jobs:
 
       - name: Release
         run: |
-          # export VERSION=$(echo "$GITHUB_REF" | sed -e 's!refs/tags/!!')
-          export VERSION="0.1.0"
+          export VERSION=$(echo "$GITHUB_REF" | sed -e 's!refs/tags/!!')
           curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
           "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" package/
         env:
