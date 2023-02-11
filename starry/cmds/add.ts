@@ -9,7 +9,7 @@ import { download } from "https://deno.land/x/download/mod.ts";
 
 import $ from "https://deno.land/x/dax/mod.ts";
 
-export const Initialize = new Command()
+export const Add = new Command()
   .description("Initialize Starry Repo")
   .action(async () => {
     await main()
