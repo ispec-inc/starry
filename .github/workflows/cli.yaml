@@ -43,16 +43,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - { uses: actions/download-artifact@v3, with: { name: starry-x86_64-unknown-linux-gnu,  path: package/ } }
-      - { uses: actions/download-artifact@v3, with: { name: starry-x86_64-apple-darwin,       path: package/ } }
-      - { uses: actions/download-artifact@v3, with: { name: starry-aarch64-apple-darwin,      path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: starry-x86_64-unknown-linux-gnu,  path: starry/ } }
+      - { uses: actions/download-artifact@v3, with: { name: starry-x86_64-apple-darwin,       path: starry/ } }
+      - { uses: actions/download-artifact@v3, with: { name: starry-aarch64-apple-darwin,      path: starry/ } }
 
       - name: Release
-        working-directory: cli
         run: |
           export VERSION="0.1.0"
           curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
-          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" package/
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" starry/
         env:
           GHR_VERSION: v0.13.0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
