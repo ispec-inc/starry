@@ -31,8 +31,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: cli/starry-${{ matrix.target }}
-          path: package/starry-${{ matrix.target }}
+          name: starry-${{ matrix.target }}
+          path: cli/starry-${{ matrix.target }}
 
 
   release:
