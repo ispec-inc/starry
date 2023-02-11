@@ -1,0 +1,23 @@
+name: Upload Release Archive
+
+on:
+  push:
+    paths:
+      - 'starry/**'
+
+jobs:
+  release:
+    name: Release Packages
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Release
+        run: |
+          export VERSION="0.1.0"
+          curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" starry
+        env:
+          GHR_VERSION: v0.13.0
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
