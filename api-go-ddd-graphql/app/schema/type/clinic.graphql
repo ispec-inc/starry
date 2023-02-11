@@ -1,0 +1,9 @@
+type Clinic {
+  id: ID!
+  name: String!
+  nameKana: String!
+}
+
+input GetClinicInput {
+  id: ID!
+}
