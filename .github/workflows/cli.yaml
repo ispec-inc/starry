@@ -18,16 +18,16 @@ jobs:
           deno-version: v1.x
 
       - name: Compile
-        working_dir: cli
+        working-directory: cli
         run: |
           deno task compile
 
       - name: Release
-        working_dir: cli
+        working-directory: cli
         run: |
           export VERSION="0.1.0"
           curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
-          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" cli/starry
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" starry
         env:
           GHR_VERSION: v0.13.0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
