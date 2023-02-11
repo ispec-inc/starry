@@ -43,7 +43,7 @@ async function add() {
   });
 
   const confirmed = await Confirm.prompt({
-    message: "Are you sure to initialize these packages?",
+    message: "Are you sure to Create these Directories?",
     hint: `${result.join(", ")}`,
   });
 
@@ -52,7 +52,7 @@ async function add() {
     Deno.exit();
   } else {
     console.log();
-    console.log(colors.bold.blue("Affirmative"));
+    console.log(colors.bold.blue("Affirm."));
   }
 
   for (const dir of result) {

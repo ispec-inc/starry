@@ -5,7 +5,7 @@ const VERSION = "0.1.0"
 
 let args = Deno.args
 if (args.length === 0) {
-  args = ["help"]
+  args = ["--help"]
 }
 await new Command()
   .name("starry")
