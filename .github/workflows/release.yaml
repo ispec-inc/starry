@@ -14,6 +14,13 @@ jobs:
         dir:
           - api-rails-graphql
           - front-next-apollo
+          - front-nuxt
+          - front-nuxt-apollo
+          - front-nuxt-ssr
+          - front-react-ionic
+          - front-react-vite-relay
+          - infra-aws
+
     steps:
       - uses: actions/checkout@v3
 
