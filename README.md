@@ -6,3 +6,13 @@
     width="250"
   />
 </div>
+
+## Features
+
+```bash
+# Install
+$ brew install ispec-inc/starry/starry
+
+# Usage
+$ starry add
+```
