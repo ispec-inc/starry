@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.dir }}
-          path: package/${{ matrix.dir }}
+          path: package/${{ matrix.dir }}.zip
 
   release:
     name: Release Packages
