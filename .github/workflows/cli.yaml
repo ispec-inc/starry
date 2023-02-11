@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  release:
+  compile:
     name: Release Packages
     runs-on: ubuntu-latest
     strategy:
@@ -28,12 +28,31 @@ jobs:
         run: |
           deno compile -A --output starry-${{ matrix.target }} --target ${{ matrix.target }} index.ts
 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: starry-${{ matrix.target }}
+          path: package/starry-${{ matrix.target }}
+
+
+  release:
+    name: Release Packages
+    runs-on: ubuntu-latest
+    needs:
+      - compile
+    steps:
+      - uses: actions/checkout@v3
+
+      - { uses: actions/download-artifact@v3, with: { name: starry-x86_64-unknown-linux-gnu,  path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: starry-x86_64-apple-darwin,       path: package/ } }
+      - { uses: actions/download-artifact@v3, with: { name: starry-aarch64-apple-darwin,      path: package/ } }
+
       - name: Release
         working-directory: cli
         run: |
           export VERSION="0.1.0"
           curl -L "https://github.com/tcnksm/ghr/releases/download/${GHR_VERSION}/ghr_${GHR_VERSION}_linux_amd64.tar.gz" | tar xvz
-          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" starry-${{ matrix.target }}
+          "ghr_${GHR_VERSION}_linux_amd64/ghr" -u ispec-inc -r starry -replace -n "$VERSION" "$VERSION" package/
         env:
           GHR_VERSION: v0.13.0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
