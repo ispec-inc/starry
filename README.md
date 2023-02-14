@@ -11,8 +11,8 @@
 
 ```bash
 # Install
-$ brew install ispec-inc/starry/starry
+$ brew install ispec-inc/tap/starry
 
 # Usage
-$ starry add
+$ starry 
 ```
