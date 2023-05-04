@@ -7,12 +7,18 @@
   />
 </div>
 
-## Features
+# Starry
+Starryは、Web APIやフロントエンドなどのアプリケーションを開発する際に有用なテンプレート群です。
+
+# テンプレートの利用方法
+Starryのコマンド経由で、テンプレートのコードをpullすることができます。
 
 ```bash
 # Install
 $ brew install ispec-inc/tap/starry
 
 # Usage
-$ starry 
+$ starry
 ```
+
+# テンプレートの開発
