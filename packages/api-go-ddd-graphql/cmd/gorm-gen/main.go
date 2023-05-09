@@ -1,11 +1,12 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/config"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/rdb"
+	"gorm.io/driver/mysql"
 	"gorm.io/gen"
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -16,24 +17,21 @@ func main() {
 		FieldNullable: true,
 	})
 
-	db, err := rdb.New(rdb.Config{
-		DBMS: rdb.DBMSMySQL,
-		Conn: rdb.Connection{
-			User:     config.MySQL.User,
-			Password: config.MySQL.Password,
-			Host:     config.MySQL.Host,
-			Port:     config.MySQL.Port,
-			Database: config.MySQL.Database,
-		},
-		MaxIdleConn: config.MySQL.MaxIdleConn,
-		MaxOpenConn: config.MySQL.MaxOpenConn,
-		MaxLifetime: config.MySQL.MaxLifetime,
-	})
+	dns := fmt.Sprintf(
+		"%s:%s@(%s:%s)/%s?charset=utf8mb4&parseTime=true",
+		config.MySQL.User,
+		config.MySQL.Password,
+		config.MySQL.Host,
+		config.MySQL.Port,
+		config.MySQL.Database,
+	)
+
+	mysqlDB, err := gorm.Open(mysql.Open(dns))
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
-	g.UseDB(db)
+	g.UseDB(mysqlDB)
 	g.GenerateAllTable()
 
 	genOrganization(g)
