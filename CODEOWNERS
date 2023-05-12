@@ -1,5 +1,5 @@
 * @YumaFuu @yamad07
 
-api-* @yamad07 @mokoshin0720
-front-* @hori-design @aganomaminmi
-infra-* @YumaFuu @yamad07
+packages/api-* @yamad07 @mokoshin0720
+packages/front-* @hori-design @aganomaminmi
+packages/infra-* @YumaFuu @yamad07
