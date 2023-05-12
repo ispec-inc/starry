@@ -1,7 +1,5 @@
-* @YumaFuu
+* @YumaFuu @yamad07
 
-*.go @yamad07
-
-api-go-modular-monolith/ @yamad07
-
-Makefile @yamad07
+api-* @yamad07 @mokoshin0720
+front-* @hori-design @aganomaminmi
+infra-* @YumaFuu @yamad07
