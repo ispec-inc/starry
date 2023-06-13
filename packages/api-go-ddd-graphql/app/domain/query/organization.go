@@ -7,5 +7,5 @@ import (
 )
 
 type Organization interface {
-	List(ctx context.Context, ids []model.ID) ([]model.Organization, error)
+	Get(ctx context.Context, ids []model.ID) ([]model.Organization, error)
 }

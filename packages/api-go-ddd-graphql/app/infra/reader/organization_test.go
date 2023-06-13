@@ -12,7 +12,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func TestOrganization_List(t *testing.T) {
+func TestOrganization_Get(t *testing.T) {
 	type (
 		give struct {
 			ids []model.ID
@@ -84,8 +84,8 @@ func TestOrganization_List(t *testing.T) {
 			logger := log.With().Caller().Str(tt.name, t.Name()).Logger()
 			ctx = logger.WithContext(ctx)
 
-			c := reader.NewOrganization(db)
-			orgs, err := c.List(ctx, tt.give.ids)
+			o := reader.NewOrganization(db)
+			orgs, err := o.Get(ctx, tt.give.ids)
 			if err != nil {
 				t.Fatal(err)
 			}

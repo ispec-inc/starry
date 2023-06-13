@@ -8,10 +8,13 @@ import (
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/infra/reader"
 )
 
+// Repository リポジトリのレジストリ
 type Repository struct {
 	db *gorm.DB
 }
 
+// NewRepository リポジトリのレジストリを返す
+// 内部でMySQLへのコネクションを確立する
 func NewRepository() (Repository, error) {
 	db, err := app.MySQL()
 	if err != nil {
@@ -23,6 +26,7 @@ func NewRepository() (Repository, error) {
 	return repo, nil
 }
 
+// NewOrganizationQuery query.Organizationの実装を返す
 func (r Repository) NewOrganizationQuery() query.Organization {
 	return reader.NewOrganization(r.db)
 }

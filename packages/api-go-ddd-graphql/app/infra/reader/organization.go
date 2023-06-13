@@ -12,15 +12,22 @@ import (
 	"gorm.io/gorm"
 )
 
+var _ query.Organization = (*Organization)(nil)
+
+// Organization query.Organizationの実装
 type Organization struct {
+	// MySQL DB
 	db *gorm.DB
 }
 
-func NewOrganization(db *gorm.DB) query.Organization {
+// NewOrganization Organizationのコンストラクタ
+func NewOrganization(db *gorm.DB) Organization {
 	return Organization{db: db}
 }
 
-func (o Organization) List(ctx context.Context, ids []model.ID) ([]model.Organization, error) {
+// Get 指定したIDのOrganizationを取得する
+// idsが空の場合は全件取得する
+func (o Organization) Get(ctx context.Context, ids []model.ID) ([]model.Organization, error) {
 	orgs := []entity.Organization{}
 	if err := o.preload(ctx).Find(&orgs, ids).Error; err != nil {
 		return []model.Organization{}, app.NotFound(err)

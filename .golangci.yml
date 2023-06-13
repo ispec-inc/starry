@@ -1,0 +1,55 @@
+# https://golangci-lint.run/usage/configuration/
+
+run:
+  timeout: 5m
+
+issues:
+  exclude-use-default: false
+
+  exclude-rules:
+    - source: "defer"
+      linters:
+        - errcheck
+
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  enable:
+    - stylecheck
+    - misspell
+    - thelper
+    - gosimple
+    - ineffassign
+    - staticcheck
+    - unused
+    - bodyclose
+    - durationcheck
+    - errorlint
+    - exhaustive
+    - goimports
+    - gosec
+    - noctx
+    - paralleltest
+    - prealloc
+    - rowserrcheck
+    - sqlclosecheck
+    - wastedassign
+    - revive
+
+linters-settings:
+  gosimple:
+    go: "1.20"
+    checks:
+      - "all"
+  staticcheck:
+    go: "1.20"
+    checks:
+      - "all"
+  stylecheck:
+    go: "1.20"
+    checks:
+      - "all"
+      - "-ST1000"
+  unused:
+    go: "1.20"
