@@ -3,12 +3,12 @@ package reader
 import (
 	"context"
 
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/domain/model"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/domain/query"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/infra/adapter"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/infra/entity"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/infra/logger"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/apperror"
 	"gorm.io/gorm"
 )
 
@@ -23,7 +23,7 @@ func NewOrganization(db *gorm.DB) query.Organization {
 func (o Organization) List(ctx context.Context, ids []model.ID) ([]model.Organization, error) {
 	orgs := []entity.Organization{}
 	if err := o.preload(ctx).Find(&orgs, ids).Error; err != nil {
-		return []model.Organization{}, apperror.NewGormFind(err, entity.TableNameOrganization)
+		return []model.Organization{}, app.NotFound(err)
 	}
 
 	return adapter.OrganizationListFromEntityList(orgs), nil

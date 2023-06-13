@@ -12,11 +12,10 @@ func main() {
 		panic(err)
 	}
 
-	api, sclnup, err := web.NewAPI()
+	api, err := web.NewAPI()
 	if err != nil {
 		panic(err)
 	}
-	defer sclnup()
 
 	ctx := context.Background()
 	api.Run(ctx)

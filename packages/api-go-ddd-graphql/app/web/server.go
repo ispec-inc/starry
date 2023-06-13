@@ -17,15 +17,15 @@ import (
 
 const PORT = 9000
 
-func newServer() (*http.Server, func() error, error) {
+func newServer() (*http.Server, error) {
 	s, err := schema.String()
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	rgst, clnup, err := registry.New()
+	rgst, err := registry.New()
 	if err != nil {
-		return nil, clnup, err
+		return nil, err
 	}
 
 	schema := graphql.MustParseSchema(s, controller.New(rgst))
@@ -51,6 +51,6 @@ func newServer() (*http.Server, func() error, error) {
 	port := fmt.Sprintf(":%d", PORT)
 
 	srv := &http.Server{Addr: port, Handler: r}
-	return srv, clnup, nil
+	return srv, nil
 
 }

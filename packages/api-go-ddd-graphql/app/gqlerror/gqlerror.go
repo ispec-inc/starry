@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/apperror"
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/lang"
 	"golang.org/x/text/message"
 )
@@ -29,11 +29,11 @@ func New(ctx context.Context, err error) Error {
 }
 
 func newFromApperror(ctx context.Context, err error) (Error, bool) {
-	aerr := apperror.Unwrap(err)
+	aerr := app.Unwrap(err)
 	if aerr == nil {
 		return Error{}, false
 	}
-	code, ok := apperrorCodes[aerr.Code()]
+	code, ok := apperrorCodes[aerr.ErrorCode()]
 	if !ok {
 		return Error{}, false
 	}
@@ -43,7 +43,7 @@ func newFromApperror(ctx context.Context, err error) (Error, bool) {
 			"code": code,
 		},
 	}
-	if key, ok := apperrorKeys[aerr.Code()]; ok {
+	if key, ok := apperrorKeys[aerr.ErrorCode()]; ok {
 		tag := lang.TagFromContext(ctx)
 		msg := message.NewPrinter(tag).Sprintf(key)
 		v.extensions["message"] = msg

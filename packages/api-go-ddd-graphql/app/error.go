@@ -1,16 +1,14 @@
-package apperror
+package app
 
-import (
-	"github.com/pkg/errors"
-)
+import "github.com/pkg/errors"
 
 type Error struct {
-	code   Code
+	code   ErrorCode
 	origin error
 	msg    string
 }
 
-func WithCode(err error, code Code) error {
+func WithErrorCode(err error, code ErrorCode) error {
 	return errors.WithStack(&Error{
 		code:   code,
 		origin: err,
@@ -18,9 +16,9 @@ func WithCode(err error, code Code) error {
 	})
 }
 
-func New(err error) error {
+func NewError(err error) error {
 	return errors.WithStack(&Error{
-		code:   CodeError,
+		code:   ErrorCodeError,
 		origin: err,
 		msg:    err.Error(),
 	})
@@ -28,27 +26,27 @@ func New(err error) error {
 
 func Invalid(err error) error {
 	return errors.WithStack(&Error{
-		code:   CodeInvalid,
+		code:   ErrorCodeInvalid,
 		origin: err,
 		msg:    err.Error(),
 	})
 }
 func Unauthorized(err error) error {
 	return errors.WithStack(&Error{
-		code:   CodeUnauthorized,
+		code:   ErrorCodeUnauthorized,
 		origin: err,
 		msg:    err.Error(),
 	})
 }
 func NotFound(err error) error {
 	return errors.WithStack(&Error{
-		code:   CodeNotFound,
+		code:   ErrorCodeNotFound,
 		origin: err,
 		msg:    err.Error(),
 	})
 }
 
-func Wrap(code Code, msg string, err error) error {
+func Wrap(code ErrorCode, msg string, err error) error {
 	err = errors.Wrap(err, msg)
 	return errors.WithStack(&Error{
 		code:   code,
@@ -61,7 +59,7 @@ func Wrapf(err error, msg string, args ...interface{}) error {
 	return errors.Wrapf(err, msg, args...)
 }
 
-func (e *Error) Code() Code {
+func (e *Error) ErrorCode() ErrorCode {
 	return e.code
 }
 
@@ -84,4 +82,17 @@ func Unwrap(err error) *Error {
 		return aerr
 	}
 	return nil
+}
+
+const (
+	ErrorCodeInvalid      = ErrorCode("invalid")
+	ErrorCodeUnauthorized = ErrorCode("unauthorized")
+	ErrorCodeNotFound     = ErrorCode("not found")
+	ErrorCodeError        = ErrorCode("error")
+)
+
+type ErrorCode string
+
+func (e ErrorCode) String() string {
+	return string(e)
 }

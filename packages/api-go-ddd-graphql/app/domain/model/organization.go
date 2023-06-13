@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/apperror"
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
 )
 
 const (
@@ -104,12 +104,12 @@ type OrganizationName string
 
 func (c OrganizationName) Validate() error {
 	if c == "" {
-		return apperror.New(errors.New("organization: name is empty"))
+		return app.NewError(errors.New("organization: name is empty"))
 	}
 
 	if utf8.RuneCountInString(string(c)) > maxOrganizationNameChars {
 		err := fmt.Errorf("organization: name exceeds %d characters", maxOrganizationNameChars)
-		return apperror.New(err)
+		return app.NewError(err)
 	}
 
 	return nil
@@ -119,12 +119,12 @@ type OrganizationAlias string
 
 func (c OrganizationAlias) Validate() error {
 	if c == "" {
-		return apperror.New(errors.New("organization: alias is empty"))
+		return app.NewError(errors.New("organization: alias is empty"))
 	}
 
 	if utf8.RuneCountInString(string(c)) > maxOrganizationAliasChars {
 		err := fmt.Errorf("organization: alias exceeds %d characters", maxOrganizationAliasChars)
-		return apperror.New(err)
+		return app.NewError(err)
 	}
 
 	return nil
@@ -134,12 +134,12 @@ type OrganizationDescription string
 
 func (c OrganizationDescription) Validate() error {
 	if c == "" {
-		return apperror.New(errors.New("organization: description is empty"))
+		return app.NewError(errors.New("organization: description is empty"))
 	}
 
 	if utf8.RuneCountInString(string(c)) > maxOrganizationDescriptionChars {
 		err := fmt.Errorf("organization: description exceeds %d characters", maxOrganizationDescriptionChars)
-		return apperror.New(err)
+		return app.NewError(err)
 	}
 
 	return nil

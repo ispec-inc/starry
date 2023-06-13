@@ -14,15 +14,15 @@ type API struct {
 	server *http.Server
 }
 
-func NewAPI() (API, func() error, error) {
-	s, clnup, err := newServer()
+func NewAPI() (API, error) {
+	s, err := newServer()
 	if err != nil {
-		return API{}, nil, err
+		return API{}, err
 	}
 
 	return API{
 		server: s,
-	}, clnup, nil
+	}, nil
 }
 
 func (a API) Run(ctx context.Context) {

@@ -24,7 +24,7 @@ func Init() error {
 		Logger.Type = LoggerTypeStdlog
 	}
 
-	if enverr := env.Parse(&RedisMsgbs); enverr != nil {
+	if enverr := env.Parse(&Redis); enverr != nil {
 		err = multierr.Append(err, enverr)
 	}
 

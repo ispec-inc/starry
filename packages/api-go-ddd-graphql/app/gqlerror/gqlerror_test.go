@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/gqlerror"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/apperror"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/lang"
 	"github.com/stretchr/testify/assert"
 )
@@ -31,7 +31,7 @@ func TestError_Error(t *testing.T) {
 		{
 			name: "apperror_invalid",
 			give: give{
-				err: apperror.WithCode(errors.New("invalid error"), apperror.CodeInvalid),
+				err: app.WithCode(errors.New("invalid error"), app.ErrorCodeInvalid),
 			},
 			want: want{
 				err: "invalid error",
@@ -81,7 +81,7 @@ func TestError_Extensions(t *testing.T) {
 			name: "ja_apperror_invalid",
 			give: give{
 				acceptLanguage: "ja-JP",
-				err:            apperror.WithCode(errors.New("invalid error"), apperror.CodeInvalid),
+				err:            app.WithCode(errors.New("invalid error"), app.ErrorCodeInvalid),
 			},
 			want: want{
 				extensions: map[string]interface{}{
@@ -94,7 +94,7 @@ func TestError_Extensions(t *testing.T) {
 			name: "en_apperror_invalid",
 			give: give{
 				acceptLanguage: "en-US",
-				err:            apperror.WithCode(errors.New("invalid error"), apperror.CodeInvalid),
+				err:            app.WithErrorCode(errors.New("invalid error"), app.ErrorCodeInvalid),
 			},
 			want: want{
 				extensions: map[string]interface{}{

@@ -1,22 +1,23 @@
-package apperror_test
+package app_test
 
 import (
-	"errors"
 	"testing"
 
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/apperror"
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
+	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestError_Unwrap(t *testing.T) {
+	t.Parallel()
 	type (
 		give struct {
-			code apperror.Code
+			code app.ErrorCode
 			err  error
 		}
 		want struct {
 			msg  string
-			code apperror.Code
+			code app.ErrorCode
 		}
 	)
 
@@ -28,28 +29,30 @@ func TestError_Unwrap(t *testing.T) {
 		{
 			name: "invalid",
 			give: give{
-				code: apperror.CodeInvalid,
+				code: app.ErrorCodeInvalid,
 				err:  errors.New("invalid"),
 			},
 			want: want{
 				msg:  "invalid",
-				code: apperror.CodeInvalid,
+				code: app.ErrorCodeInvalid,
 			},
 		},
 	}
 
 	for i := range tests {
-		test := tests[i]
-		t.Run(test.name, func(t *testing.T) {
-			err := apperror.WithCode(test.give.err, test.give.code)
-			aerr := apperror.Unwrap(err)
-			assert.Equal(t, aerr.Error(), test.want.msg)
-			assert.Equal(t, aerr.Code(), test.want.code)
+		tt := tests[i]
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			err := app.WithErrorCode(tt.give.err, tt.give.code)
+			aerr := app.Unwrap(err)
+			assert.Equal(t, aerr.Error(), tt.want.msg)
+			assert.Equal(t, aerr.ErrorCode(), tt.want.code)
 		})
 	}
 }
 
 func TestError_Is(t *testing.T) {
+	t.Parallel()
 	type (
 		give struct {
 			err error
@@ -69,7 +72,7 @@ func TestError_Is(t *testing.T) {
 		{
 			name: "true_new",
 			give: give{
-				err: apperror.New(err),
+				err: app.New(err),
 			},
 			want: want{
 				is: true,
@@ -78,7 +81,7 @@ func TestError_Is(t *testing.T) {
 		{
 			name: "true_errorf",
 			give: give{
-				err: apperror.Wrap(apperror.CodeError, "wrap", err),
+				err: app.Wrap(app.ErrorCodeError, "wrap", err),
 			},
 			want: want{
 				is: true,
@@ -87,9 +90,10 @@ func TestError_Is(t *testing.T) {
 	}
 
 	for i := range tests {
-		test := tests[i]
-		t.Run(test.name, func(t *testing.T) {
-			assert.True(t, errors.Is(test.give.err, err))
+		tt := tests[i]
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.True(t, errors.Is(tt.give.err, err))
 		})
 	}
 }

@@ -1,3 +1,3 @@
 type Query {
-    getClinic(input: GetClinicInput!): Clinic!
+  organization(id: ID!): Organization!
 }

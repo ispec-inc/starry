@@ -1,7 +1,7 @@
 package gqlerror
 
 import (
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/apperror"
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 )
@@ -24,11 +24,11 @@ var messages = map[string]map[language.Tag]string{
 	keyErrorTokenIsExpired: {language.Japanese: "IDトークンの期限が切れています。", language.English: "ID Token is expired."},
 }
 
-var apperrorKeys = map[apperror.Code]string{
-	apperror.CodeInvalid:      keyErrorInvalid,
-	apperror.CodeUnauthorized: keyErrorUnauthorized,
-	apperror.CodeNotFound:     keyErrorNotFound,
-	apperror.CodeError:        keyErrorGeneral,
+var apperrorKeys = map[app.ErrorCode]string{
+	app.ErrorCodeInvalid:      keyErrorInvalid,
+	app.ErrorCodeUnauthorized: keyErrorUnauthorized,
+	app.ErrorCodeNotFound:     keyErrorNotFound,
+	app.ErrorCodeError:        keyErrorGeneral,
 }
 
 var domainErrorKeys = map[error]string{}

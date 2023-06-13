@@ -9,24 +9,22 @@ import (
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/uc"
 )
 
-type GetClinicArgs struct {
-	Input struct {
-		ID graphql.ID
-	}
+type OrganizationArgs struct {
+	ID graphql.ID
 }
 
-func (c Controller) GetClinic(ctx context.Context, args GetClinicArgs) (resolver.Clinic, error) {
+func (c Controller) Organization(ctx context.Context, args OrganizationArgs) (resolver.Organization, error) {
 
-	ipt := uc.GetClinicInput{
-		ID: model.ID(args.Input.ID),
+	ipt := uc.GetOrganizationInput{
+		ID: model.ID(args.ID),
 	}
-	get := uc.NewGetClinic(c.registry)
+	get := uc.NewGetOrganization(c.registry)
 
 	opt, err := get.Do(ctx, ipt)
 	if err != nil {
-		return resolver.Clinic{}, err
+		return resolver.Organization{}, err
 	}
 
-	r := resolver.NewClinic(opt.Clinic)
+	r := resolver.NewOrganization(opt.Organization)
 	return r, nil
 }

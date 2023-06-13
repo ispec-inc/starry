@@ -4,7 +4,7 @@ import (
 	"errors"
 	"regexp"
 
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/apperror"
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
 )
 
 type PhoneNumber string
@@ -15,5 +15,5 @@ func (p PhoneNumber) Validate() error {
 		return nil
 	}
 
-	return apperror.Invalid(errors.New("phone_number: invalid format"))
+	return app.Invalid(errors.New("phone_number: invalid format"))
 }

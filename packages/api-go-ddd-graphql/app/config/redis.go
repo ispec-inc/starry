@@ -5,12 +5,12 @@ import (
 )
 
 func init() {
-	if err := env.Parse(&RedisMsgbs); err != nil {
+	if err := env.Parse(&Redis); err != nil {
 		panic(err)
 	}
 }
 
-var RedisMsgbs redis
+var Redis redis
 
 type redis struct {
 	Host string `env:"REDIS_MSGBS_HOST"`

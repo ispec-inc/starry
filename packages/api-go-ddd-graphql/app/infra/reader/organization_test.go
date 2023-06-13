@@ -8,8 +8,7 @@ import (
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/domain/model"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/infra/entity"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/infra/reader"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/rdb"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/testool"
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/test"
 	"github.com/rs/zerolog/log"
 )
 
@@ -20,7 +19,7 @@ func TestOrganization_List(t *testing.T) {
 		}
 	)
 
-	db, cleanup := testool.PrepareDB(t, rdb.DBMSMySQL, "Organization_List", []interface{}{
+	db, cleanup := test.PrepareDB(t, "Organization_List", []interface{}{
 		&entity.Organization{
 			ID: "organization_list_uuid_1",
 			OrganizationDetail: entity.OrganizationDetail{

@@ -1,9 +1,4 @@
-type Clinic {
+type Organization {
   id: ID!
   name: String!
-  nameKana: String!
-}
-
-input GetClinicInput {
-  id: ID!
 }

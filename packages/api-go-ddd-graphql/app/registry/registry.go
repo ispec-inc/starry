@@ -2,28 +2,17 @@ package registry
 
 type Registry struct {
 	repo Repository
-	lgr  Logger
 }
 
-func New() (Registry, func() error, error) {
-	repo, clnup, err := NewRepository()
+func New() (Registry, error) {
+	repo, err := NewRepository()
 	if err != nil {
-		return Registry{}, clnup, err
-	}
-
-	lgr, clnup, err := NewLogger()
-	if err != nil {
-		return Registry{}, clnup, err
+		return Registry{}, err
 	}
 
 	return Registry{
 		repo: repo,
-		lgr:  lgr,
-	}, clnup, nil
-}
-
-func (r Registry) Logger() Logger {
-	return r.lgr
+	}, nil
 }
 
 func (r Registry) Repository() Repository {
