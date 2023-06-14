@@ -15,6 +15,10 @@ import (
 	"golang.org/x/text/language"
 )
 
+const (
+	defaultLanguage = "en"
+)
+
 var (
 	CtxLanguageKey = struct{}{}
 	matcher        = language.NewMatcher([]language.Tag{
@@ -53,7 +57,7 @@ func Language(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		lang := r.Header.Get("Accept-Language")
 		if lang == "" {
-			lang = "en"
+			lang = defaultLanguage
 		}
 		tags, _, err := language.ParseAcceptLanguage(lang)
 		if err != nil {
