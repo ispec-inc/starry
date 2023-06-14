@@ -10,7 +10,7 @@ type Error struct {
 }
 
 // WithErrorCode エラーコードを付与する
-func WithErrorCode(err error, code ErrorCode) error {
+func WithCode(err error, code ErrorCode) error {
 	return errors.WithStack(&Error{
 		code:   code,
 		origin: err,

@@ -31,7 +31,7 @@ func TestError_Error(t *testing.T) {
 		{
 			name: "apperror_invalid",
 			give: give{
-				err: app.WithCode(errors.New("invalid error"), app.ErrorCodeInvalid),
+				err: app.WithErrorCode(errors.New("invalid error"), app.ErrorCodeInvalid),
 			},
 			want: want{
 				err: "invalid error",
@@ -81,7 +81,7 @@ func TestError_Extensions(t *testing.T) {
 			name: "ja_apperror_invalid",
 			give: give{
 				acceptLanguage: "ja-JP",
-				err:            app.WithCode(errors.New("invalid error"), app.ErrorCodeInvalid),
+				err:            app.WithErrorCode(errors.New("invalid error"), app.ErrorCodeInvalid),
 			},
 			want: want{
 				extensions: map[string]interface{}{

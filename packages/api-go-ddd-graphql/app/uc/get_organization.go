@@ -29,7 +29,7 @@ func NewGetOrganization(r registry.Registry) GetOrganization {
 }
 
 func (g GetOrganization) Do(ctx context.Context, ipt GetOrganizationInput) (GetOrganizationOutput, error) {
-	os, err := g.organizationQuery.List(ctx, []model.ID{ipt.ID})
+	os, err := g.organizationQuery.Get(ctx, []model.ID{ipt.ID})
 	if err != nil {
 		return GetOrganizationOutput{}, err
 	}

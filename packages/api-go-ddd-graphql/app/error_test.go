@@ -72,7 +72,7 @@ func TestError_Is(t *testing.T) {
 		{
 			name: "true_new",
 			give: give{
-				err: app.New(err),
+				err: app.NewError(err),
 			},
 			want: want{
 				is: true,

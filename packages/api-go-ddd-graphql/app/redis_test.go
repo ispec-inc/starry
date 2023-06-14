@@ -7,9 +7,15 @@ import (
 )
 
 func Test_Redis(t *testing.T) {
-	r := app.Redis()
+	r, err := app.Redis()
+	if err != nil {
+		t.Fatal(err)
+	}
 
-	r2 := app.Redis()
+	r2, nil := app.Redis()
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	if r != r2 {
 		t.Fatal("Redis() should return same instance")
