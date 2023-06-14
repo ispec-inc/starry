@@ -19,7 +19,7 @@ func NewError(ctx context.Context, err error) Error {
 		return Error{
 			s: err.Error(),
 			extensions: map[string]interface{}{
-				"code": "ERROR",
+				"code": ErrorCodeError,
 			},
 		}
 	}

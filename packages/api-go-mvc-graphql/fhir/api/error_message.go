@@ -6,6 +6,13 @@ import (
 	"golang.org/x/text/message"
 )
 
+const (
+	ErrorCodeInvalid      = "INVALID"
+	ErrorCodeUnauthorized = "UNAUTHORIZED"
+	ErrorCodeNotFound     = "NOT_FOUND"
+	ErrorCodeError        = "ERROR"
+)
+
 var messages = map[fhir.ErrorCode]map[language.Tag]string{
 	fhir.ErrorCodeInvalid:      {language.Japanese: "リクエストが無効です。", language.English: "Invalid request"},
 	fhir.ErrorCodeUnauthorized: {language.Japanese: "ログインしてください。", language.English: "Unauthorized"},
@@ -14,10 +21,10 @@ var messages = map[fhir.ErrorCode]map[language.Tag]string{
 }
 
 var codes = map[fhir.ErrorCode]string{
-	fhir.ErrorCodeInvalid:      "INVALID",
-	fhir.ErrorCodeUnauthorized: "UNAUTHORIZED",
-	fhir.ErrorCodeNotFound:     "NOT_FOUND",
-	fhir.ErrorCodeError:        "ERROR",
+	fhir.ErrorCodeInvalid:      ErrorCodeInvalid,
+	fhir.ErrorCodeUnauthorized: ErrorCodeUnauthorized,
+	fhir.ErrorCodeNotFound:     ErrorCodeNotFound,
+	fhir.ErrorCodeError:        ErrorCodeError,
 }
 
 func init() {
