@@ -4,9 +4,9 @@ type (
 	OrganizationType int32
 )
 
-var (
-	OrganizationTypeProv int32 = 1
-	OrganizationTypeOrg  int32 = 2
+const (
+	OrganizationTypeProv int32 = iota + 1
+	OrganizationTypeOrg
 )
 
 func OrganizationTypeString(v int32) string {
