@@ -1,0 +1,4 @@
+type Mutation {
+  registerOrganization(input: RegisterOrganizationInput!): Organization!
+  cancelOrganization(input: CancelOrganizationInput!): Organization!
+}

@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/config"
+	"github.com/ispec-inc/starry/packages/api-go-mvc-graphql/fhir/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
@@ -11,8 +12,9 @@ import (
 
 func main() {
 	g := gen.NewGenerator(gen.Config{
-		OutPath:       "./app/infra/entity",
-		ModelPkgPath:  "entity",
+		OutPath:       "./api/fhir/query",
+		ModelPkgPath:  "./api/fhir/model",
+		WithUnitTest:  true,
 		Mode:          gen.WithDefaultQuery | gen.WithQueryInterface,
 		FieldNullable: true,
 	})
@@ -28,13 +30,12 @@ func main() {
 
 	mysqlDB, err := gorm.Open(mysql.Open(dns))
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	g.UseDB(mysqlDB)
 	g.GenerateAllTable()
 
 	genOrganization(g)
-
 	g.Execute()
 }

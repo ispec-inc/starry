@@ -1,0 +1,45 @@
+type Organization {
+  id: ID!
+  type: OrganizationType!
+  alias: String!
+  description: String!
+  name: String!
+  contact: String!
+  partOf: Organization
+}
+
+type Endpoint {
+  id: ID!
+}
+
+enum OrganizationType {
+  PROV
+  DEPT
+  TEAM
+  GOVT
+  INS
+  PAY
+  EDU
+  RELI
+  CRS
+  CG
+  BUS
+  OTHER
+}
+
+input GetOrganizationInput {
+  id: ID!
+}
+
+input RegisterOrganizationInput {
+  type: OrganizationType!
+  alias: String!
+  description: String!
+  name: String!
+  contact: String!
+  partOfOrganizationId: ID
+}
+
+input CancelOrganizationInput {
+  id: ID!
+}
