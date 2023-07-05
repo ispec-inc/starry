@@ -51,5 +51,9 @@ linters-settings:
     checks:
       - "all"
       - "-ST1000"
+  revive:
+    go: "1.20"
+    checks:
+      - "package-comments"
   unused:
     go: "1.20"

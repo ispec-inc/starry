@@ -21,7 +21,7 @@ func OrganizationListFromEntityList(ens []entity.Organization) []organization.Or
 	for i := range ens {
 		ms[i] = organization.Organization{
 			ID:      domain.ID(ens[i].ID),
-			Name:    organization.OrganizationName(ens[i].OrganizationDetail.Name),
+			Name:    organization.Name(ens[i].OrganizationDetail.Name),
 			Contact: organization.PhoneNumber(ens[i].OrganizationDetail.Contact),
 		}
 	}

@@ -15,6 +15,7 @@ const (
 	maxOrganizationDescriptionChars int = 50
 )
 
+// Organization 組織を表現するドメインモデルの集約
 type Organization struct {
 	ID          domain.ID
 	Name        Name
@@ -24,6 +25,7 @@ type Organization struct {
 	Description Description
 }
 
+// RegisterOrganization 組織を登録するドメインサービス
 func RegisterOrganization(
 	name Name,
 	alias Alias,
@@ -53,6 +55,7 @@ func RegisterOrganization(
 	return o, nil
 }
 
+// Validate 組織のドメインモデルのバリデーション
 func (o Organization) Validate() error {
 	if err := o.Name.Validate(); err != nil {
 		return err
@@ -73,6 +76,7 @@ func (o Organization) Validate() error {
 	return nil
 }
 
+// OrganizationType 組織の種別
 type OrganizationType int
 
 var (
@@ -80,6 +84,7 @@ var (
 	OrganizationTypeOrg  int32 = 2
 )
 
+// OrganizationTypeString 組織の種別を文字列に変換する
 func OrganizationTypeString(v int32) string {
 	switch v {
 	case OrganizationTypeProv:
@@ -91,6 +96,7 @@ func OrganizationTypeString(v int32) string {
 	}
 }
 
+// NewType 組織の種別を文字列から生成する
 func NewType(v string) int32 {
 	switch v {
 	case "PROV":
@@ -102,8 +108,10 @@ func NewType(v string) int32 {
 	}
 }
 
+// Name 組織名
 type Name string
 
+// Validate 組織名のバリデーション
 func (n Name) Validate() error {
 	if n == "" {
 		return errors.New("organization: name is empty")
@@ -117,8 +125,10 @@ func (n Name) Validate() error {
 	return nil
 }
 
+// Alias 組織の略称
 type Alias string
 
+// Validate 組織の略称のバリデーション
 func (a Alias) Validate() error {
 	if a == "" {
 		return errors.New("organization: alias is empty")
@@ -132,8 +142,10 @@ func (a Alias) Validate() error {
 	return nil
 }
 
+// Description 組織の説明
 type Description string
 
+// Validate 組織の説明のバリデーション
 func (d Description) Validate() error {
 	if d == "" {
 		return errors.New("organization: description is empty")

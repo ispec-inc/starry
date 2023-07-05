@@ -15,6 +15,7 @@ const (
 	testDriver = "txdb"
 )
 
+// InitMySQL テスト用のMySQLの初期化
 func InitMySQL() {
 	dns := fmt.Sprintf(
 		"%s:%s@(%s:%s)/%s?charset=utf8mb4&parseTime=true",
@@ -27,6 +28,7 @@ func InitMySQL() {
 	txdb.Register(testDriver, "mysql", dns)
 }
 
+// PrepareDB テスト用のDBの準備。シードデータを渡すとテスト用のDBにデータを投入する
 func PrepareDB(t *testing.T, name string, seeds []interface{}) (*app.DB, func()) {
 	t.Helper()
 
@@ -44,5 +46,5 @@ func PrepareDB(t *testing.T, name string, seeds []interface{}) (*app.DB, func())
 			t.Fatal(err)
 		}
 	}
-	return app.NewDB(db), func() { sqldb, _ := db.DB(); sqldb.Close() }
+	return app.NewDB(db), func() { sqldb, _ := db.DB(); sqldb.Close() } // nolint
 }

@@ -2,6 +2,7 @@ package seed
 
 import "github.com/ispec-inc/starry/api-go-ddd-graphql/service/clinic/internal/infra/entity"
 
+// Dev 開発環境用のシードデータ
 func Dev() []interface{} {
 	return []interface{}{
 		&entity.Organization{

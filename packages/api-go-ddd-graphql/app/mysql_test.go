@@ -16,8 +16,8 @@ func Test_MySQL(t *testing.T) {
 		t.Fatal("db is nil")
 	}
 
-	if db.Error != nil {
-		t.Fatal(db.Error)
+	if db.Get().Error != nil {
+		t.Fatal(db.Get().Error)
 	}
 
 	dbTwice, err := app.MySQL()
@@ -30,8 +30,8 @@ func Test_MySQL(t *testing.T) {
 		t.Fatal("dbTwice is nil")
 	}
 
-	if dbTwice.Error != nil {
-		t.Fatal(dbTwice.Error)
+	if dbTwice.Get().Error != nil {
+		t.Fatal(dbTwice.Get().Error)
 	}
 
 	if db != dbTwice {

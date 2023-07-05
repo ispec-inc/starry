@@ -16,26 +16,33 @@ var (
 	mysqlOnce sync.Once
 )
 
+// DB データベースのコネクションを管理する構造体
 type DB struct {
+	// gorm gormのクライアント
 	gorm *gorm.DB
 }
 
+// NewDB DBのコンストラクタ
 func NewDB(gorm *gorm.DB) *DB {
 	return &DB{gorm: gorm}
 }
 
+// Begin トランザクションを開始する
 func (d *DB) Begin() *DB {
 	return &DB{gorm: d.gorm.Begin()}
 }
 
+// Commit トランザクションをコミットする
 func (d *DB) Commit() error {
 	return d.gorm.Commit().Error
 }
 
+// Rollback トランザクションをロールバックする
 func (d *DB) Rollback() {
 	d.gorm.Rollback()
 }
 
+// Get gormのクライアントを返す
 func (d *DB) Get() *gorm.DB {
 	return d.gorm
 }
