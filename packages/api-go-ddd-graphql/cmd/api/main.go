@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/api"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/config"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/web"
 )
 
 func main() {
@@ -12,7 +12,11 @@ func main() {
 		panic(err)
 	}
 
-	api, err := web.NewAPI()
+	if err := api.NewPubSub(); err != nil {
+		panic(err)
+	}
+
+	api, err := api.NewAPI()
 	if err != nil {
 		panic(err)
 	}

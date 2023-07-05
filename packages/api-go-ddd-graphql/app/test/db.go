@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-txdb"
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -26,7 +27,7 @@ func InitMySQL() {
 	txdb.Register(testDriver, "mysql", dns)
 }
 
-func PrepareDB(t *testing.T, name string, seeds []interface{}) (*gorm.DB, func()) {
+func PrepareDB(t *testing.T, name string, seeds []interface{}) (*app.DB, func()) {
 	t.Helper()
 
 	dialector := mysql.New(mysql.Config{
@@ -43,5 +44,5 @@ func PrepareDB(t *testing.T, name string, seeds []interface{}) (*gorm.DB, func()
 			t.Fatal(err)
 		}
 	}
-	return db, func() { sqldb, _ := db.DB(); sqldb.Close() }
+	return app.NewDB(db), func() { sqldb, _ := db.DB(); sqldb.Close() }
 }

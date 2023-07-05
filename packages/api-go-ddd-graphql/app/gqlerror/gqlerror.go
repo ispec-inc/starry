@@ -4,9 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/lang"
-	"golang.org/x/text/message"
+	"github.com/ispec-inc/starry/api-go-ddd-graphql/api/lang"
 )
 
 type Error struct {
@@ -14,62 +12,29 @@ type Error struct {
 	extensions map[string]interface{}
 }
 
-func New(ctx context.Context, err error) Error {
-	v, ok := newFromApperror(ctx, err)
-	if ok {
-		return v
-	}
+type Handler struct {
+	Presenters map[error]Presenter
+}
 
-	v, ok = newFromDomainError(ctx, err)
-	if ok {
+func (h Handler) New(ctx context.Context, err error) Error {
+	for perr, pre := range h.Presenters {
+		if !errors.Is(err, perr) {
+			continue
+		}
+
+		v := Error{
+			s: err.Error(),
+			extensions: map[string]interface{}{
+				"code": pre.Code,
+			},
+		}
+
+		tag := lang.TagFromContext(ctx)
+		v.extensions["message"] = pre.Lang2Msg[tag]
 		return v
 	}
 
 	return Error{s: err.Error()}
-}
-
-func newFromApperror(ctx context.Context, err error) (Error, bool) {
-	aerr := app.Unwrap(err)
-	if aerr == nil {
-		return Error{}, false
-	}
-	code, ok := apperrorCodes[aerr.ErrorCode()]
-	if !ok {
-		return Error{}, false
-	}
-	v := Error{
-		s: err.Error(),
-		extensions: map[string]interface{}{
-			"code": code,
-		},
-	}
-	if key, ok := apperrorKeys[aerr.ErrorCode()]; ok {
-		tag := lang.TagFromContext(ctx)
-		msg := message.NewPrinter(tag).Sprintf(key)
-		v.extensions["message"] = msg
-	}
-	return v, true
-}
-
-func newFromDomainError(ctx context.Context, err error) (Error, bool) {
-	for domainError, code := range domainErrorCodes {
-		if !errors.Is(err, domainError) {
-			continue
-		}
-		v := Error{
-			s: err.Error(),
-			extensions: map[string]interface{}{
-				"code": code,
-			},
-		}
-		if key, ok := domainErrorKeys[domainError]; ok {
-			tag := lang.TagFromContext(ctx)
-			msg := message.NewPrinter(tag).Sprintf(key)
-			v.extensions["message"] = msg
-		}
-		return v, true
-	}
-	return Error{}, false
 }
 
 func (e Error) Error() string {

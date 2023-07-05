@@ -16,9 +16,33 @@ var (
 	mysqlOnce sync.Once
 )
 
+type DB struct {
+	gorm *gorm.DB
+}
+
+func NewDB(gorm *gorm.DB) *DB {
+	return &DB{gorm: gorm}
+}
+
+func (d *DB) Begin() *DB {
+	return &DB{gorm: d.gorm.Begin()}
+}
+
+func (d *DB) Commit() error {
+	return d.gorm.Commit().Error
+}
+
+func (d *DB) Rollback() {
+	d.gorm.Rollback()
+}
+
+func (d *DB) Get() *gorm.DB {
+	return d.gorm
+}
+
 // MySQL はMySQLのクライアントを返す
 // sync.Onceを使うことで、複数回この関数が呼ばれても、クライアントは一度だけしか生成されないようにしている
-func MySQL() (*gorm.DB, error) {
+func MySQL() (*DB, error) {
 	var (
 		err error
 		db  *sql.DB
@@ -55,5 +79,5 @@ func MySQL() (*gorm.DB, error) {
 		db.SetConnMaxLifetime(config.MySQL.MaxLifetime)
 	})
 
-	return mysqlDB, err
+	return &DB{gorm: mysqlDB}, err
 }
