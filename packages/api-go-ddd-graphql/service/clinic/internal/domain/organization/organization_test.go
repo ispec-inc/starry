@@ -10,6 +10,8 @@ import (
 )
 
 func TestName_Validate(t *testing.T) {
+	t.Parallel()
+
 	type (
 		give struct {
 			name string
@@ -66,6 +68,8 @@ func TestName_Validate(t *testing.T) {
 		test := tests[i]
 
 		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
 			name := organization.Name(test.give.name)
 			err := name.Validate()
 			if test.want.err != nil {

@@ -12,10 +12,6 @@ func main() {
 		panic(err)
 	}
 
-	if err := api.NewPubSub(); err != nil {
-		panic(err)
-	}
-
 	api, err := api.NewAPI()
 	if err != nil {
 		panic(err)

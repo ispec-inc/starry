@@ -9,6 +9,8 @@ import (
 )
 
 func Test_NewID(t *testing.T) {
+	t.Parallel()
+
 	type (
 		give struct {
 			name string
@@ -45,8 +47,8 @@ func Test_NewID(t *testing.T) {
 
 	for i := range tests {
 		test := tests[i]
-
 		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
 			id, err := domain.NewID()
 			if test.want.err != nil {
 				assert.EqualError(t, test.want.err, err.Error())

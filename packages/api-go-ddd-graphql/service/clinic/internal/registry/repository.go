@@ -24,6 +24,7 @@ func NewRepository() (Repository, error) {
 	return repo, nil
 }
 
+// DB MySQLへのコネクションを返す
 func (r Repository) DB() *app.DB {
 	return r.db
 }

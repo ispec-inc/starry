@@ -17,13 +17,16 @@ const (
 
 // Organization 組織を表現するドメインモデルの集約
 type Organization struct {
-	ID          domain.ID
+	ID          ID
 	Name        Name
 	Alias       Alias
 	Type        OrganizationType
 	Contact     PhoneNumber
 	Description Description
 }
+
+// ID 組織のID
+type ID domain.ID
 
 // RegisterOrganization 組織を登録するドメインサービス
 func RegisterOrganization(
@@ -40,7 +43,7 @@ func RegisterOrganization(
 	}
 
 	o := Organization{
-		ID:          id,
+		ID:          ID(id),
 		Name:        name,
 		Alias:       alias,
 		Type:        otype,
@@ -69,19 +72,15 @@ func (o Organization) Validate() error {
 		return err
 	}
 
-	if err := o.Description.Validate(); err != nil {
-		return err
-	}
-
-	return nil
+	return o.Description.Validate()
 }
 
 // OrganizationType 組織の種別
 type OrganizationType int
 
 var (
-	OrganizationTypeProv int32 = 1
-	OrganizationTypeOrg  int32 = 2
+	OrganizationTypeProv int32 = 1 // OrganizationTypeProv 事業者
+	OrganizationTypeOrg  int32 = 2 // OrganizationTypeOrg 組織
 )
 
 // OrganizationTypeString 組織の種別を文字列に変換する

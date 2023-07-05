@@ -14,6 +14,8 @@ import (
 )
 
 func TestOrganization_Get(t *testing.T) {
+	t.Parallel()
+
 	type (
 		give struct {
 			ids []domain.ID
@@ -81,6 +83,8 @@ func TestOrganization_Get(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			ctx := context.Background()
 			logger := log.With().Caller().Str(tt.name, t.Name()).Logger()
 			ctx = logger.WithContext(ctx)

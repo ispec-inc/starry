@@ -8,6 +8,7 @@ import (
 )
 
 var (
+	// ErrUnauthorized 認証に失敗したエラー
 	ErrUnauthorized = errors.New("unauthorized")
 )
 

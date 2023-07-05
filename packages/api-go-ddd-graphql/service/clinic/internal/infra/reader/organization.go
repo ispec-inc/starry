@@ -35,7 +35,7 @@ func (o Organization) Get(ctx context.Context, tx *app.DB, ids []domain.ID) ([]o
 	return adapter.OrganizationListFromEntityList(orgs), nil
 }
 
-func (c Organization) preload(ctx context.Context, tx *gorm.DB) *gorm.DB {
+func (o Organization) preload(ctx context.Context, tx *gorm.DB) *gorm.DB {
 	return tx.
 		Session(&gorm.Session{Logger: logger.NewZerologToGormLogger(ctx)}).
 		Preload("OrganizationDetail")

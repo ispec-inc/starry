@@ -1,27 +1,15 @@
 package config
 
 import (
-	"os"
-
 	"github.com/caarlos0/env/v6"
 	"go.uber.org/multierr"
 )
 
+// Init 環境変数を読み込む
 func Init() error {
 	var err error
 	if enverr := env.Parse(&MySQL); enverr != nil {
 		err = multierr.Append(err, enverr)
-	}
-
-	lgtype := os.Getenv("LOGGER_TYPE")
-	switch lgtype {
-	case string(LoggerTypeSentry):
-		Logger.Type = LoggerTypeSentry
-		if enverr := env.Parse(&Sentry); enverr != nil {
-			err = multierr.Append(err, enverr)
-		}
-	default:
-		Logger.Type = LoggerTypeStdlog
 	}
 
 	if enverr := env.Parse(&Redis); enverr != nil {

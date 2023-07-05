@@ -11,11 +11,13 @@ import (
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/service/clinic/internal/uc"
 )
 
+// Controller Organizationのコントローラ
 type Controller struct {
 	registry        registry.Registry
 	gqlErrorHandler gqlerror.Handler
 }
 
+// New Controllerのコンストラクタ
 func New() (*Controller, error) {
 	rgst, err := registry.New()
 	if err != nil {
@@ -32,6 +34,7 @@ func New() (*Controller, error) {
 	}, nil
 }
 
+// Organization IDに該当するOrganizationを取得する
 func (c Controller) Organization(ctx context.Context, args struct {
 	ID graphql.ID
 }) (resolver.Organization, error) {
@@ -46,6 +49,6 @@ func (c Controller) Organization(ctx context.Context, args struct {
 		return resolver.Organization{}, c.gqlErrorHandler.New(ctx, err)
 	}
 
-	r := resolver.NewOrganization(opt.Organization)
+	r := resolver.Organization{Model: opt.Organization}
 	return r, nil
 }

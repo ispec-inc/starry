@@ -5,20 +5,17 @@ import (
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/service/clinic/internal/domain/organization"
 )
 
+// Organization Organizationのリゾルバ
 type Organization struct {
-	model organization.Organization
+	Model organization.Organization
 }
 
-func NewOrganization(
-	m organization.Organization,
-) Organization {
-	return Organization{model: m}
-}
-
+// ID OrganizationのID
 func (c Organization) ID() graphql.ID {
-	return graphql.ID(c.model.ID)
+	return graphql.ID(c.Model.ID)
 }
 
+// Name Organizationの名前
 func (c Organization) Name() string {
-	return string(c.model.Name)
+	return string(c.Model.Name)
 }

@@ -1,15 +1,6 @@
 package config
 
-import (
-	"github.com/caarlos0/env/v6"
-)
-
-func init() {
-	if err := env.Parse(&Redis); err != nil {
-		panic(err)
-	}
-}
-
+// Redis Redisの設定
 var Redis redis
 
 type redis struct {

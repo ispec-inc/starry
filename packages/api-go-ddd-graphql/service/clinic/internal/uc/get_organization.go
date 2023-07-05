@@ -5,25 +5,28 @@ import (
 	"errors"
 
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pubsub"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/service/clinic/internal/domain"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/service/clinic/internal/domain/organization"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/service/clinic/internal/registry"
 )
 
+// GetOrganization Organizationを取得するユースケース
 type GetOrganization struct {
 	db                *app.DB
 	organizationQuery organization.Query
 }
 
+// GetOrganizationInput Organizationを取得するユースケースの入力
 type GetOrganizationInput struct {
 	ID domain.ID
 }
 
+// GetOrganizationOutput Organizationを取得するユースケースの出力
 type GetOrganizationOutput struct {
 	Organization organization.Organization
 }
 
+// NewGetOrganization GetOrganizationのコンストラクタ
 func NewGetOrganization(r registry.Registry) GetOrganization {
 	return GetOrganization{
 		db:                r.Repository().DB(),
@@ -31,6 +34,7 @@ func NewGetOrganization(r registry.Registry) GetOrganization {
 	}
 }
 
+// Do GetOrganizationのユースケースの実行
 func (g GetOrganization) Do(ctx context.Context, ipt GetOrganizationInput) (GetOrganizationOutput, error) {
 
 	tx := g.db.Begin()
@@ -43,12 +47,6 @@ func (g GetOrganization) Do(ctx context.Context, ipt GetOrganizationInput) (GetO
 	}
 
 	if len(os) == 0 {
-		return GetOrganizationOutput{}, errors.New("organization not found")
-	}
-
-	if err := pubsub.Publish(ctx, pubsub.DoneKey, pubsub.Done{
-		ID: 1,
-	}); err != nil {
 		return GetOrganizationOutput{}, errors.New("organization not found")
 	}
 

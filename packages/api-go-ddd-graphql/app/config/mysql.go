@@ -2,16 +2,9 @@ package config
 
 import (
 	"time"
-
-	"github.com/caarlos0/env/v6"
 )
 
-func init() {
-	if err := env.Parse(&MySQL); err != nil {
-		panic(err)
-	}
-}
-
+// MySQL MySQLの設定
 var MySQL mysql
 
 type mysql struct {

@@ -3,13 +3,12 @@ package api
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/api/schema"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/app/config"
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/pkg/middleware"
 	"github.com/ispec-inc/starry/api-go-ddd-graphql/service/clinic"
 )
 
@@ -22,7 +21,7 @@ const PORT = 9000
 // newServer http.Serverを生成する。内部で各サービスのコントローラを呼び出し、schemaとの整合性チェックする
 func newServer() (*http.Server, error) {
 
-	s, err := schema.String()
+	s, err := SchemaString()
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +36,7 @@ func newServer() (*http.Server, error) {
 
 	h := &relay.Handler{Schema: schema}
 	r := chi.NewRouter()
-	r = middleware.Common(r, middleware.CommonConfig{
+	r = Common(r, CommonConfig{
 		Timeout:      config.Router.Timeout,
 		AllowOrigins: config.Router.AllowOrigins,
 	})
@@ -56,7 +55,11 @@ func newServer() (*http.Server, error) {
 
 	port := fmt.Sprintf(":%d", PORT)
 
-	srv := &http.Server{Addr: port, Handler: r}
+	srv := &http.Server{
+		Addr:              port,
+		Handler:           r,
+		ReadHeaderTimeout: 10 * time.Second,
+	}
 	return srv, nil
 
 }

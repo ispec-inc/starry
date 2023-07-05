@@ -1,4 +1,4 @@
-package schema
+package api
 
 import (
 	"bytes"
@@ -8,10 +8,10 @@ import (
 	"strings"
 )
 
-//go:embed *.graphql type/*.graphql
+//go:embed schema/*.graphql schema/type/*.graphql
 var content embed.FS
 
-func String() (string, error) {
+func SchemaString() (string, error) {
 	var buf bytes.Buffer
 
 	fn := func(path string, d fs.DirEntry, err error) error {

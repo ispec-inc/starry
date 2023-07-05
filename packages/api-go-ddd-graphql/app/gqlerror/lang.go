@@ -1,4 +1,4 @@
-package lang
+package gqlerror
 
 import (
 	"context"
@@ -14,6 +14,7 @@ var (
 	})
 )
 
+// ContextWithTag 言語タグをコンテキストに埋め込む関数
 func ContextWithTag(ctx context.Context, acceptLanguage string) context.Context {
 	tags, _, err := language.ParseAcceptLanguage(acceptLanguage)
 	if err != nil {
@@ -23,6 +24,7 @@ func ContextWithTag(ctx context.Context, acceptLanguage string) context.Context 
 	return context.WithValue(ctx, tagKey, tag)
 }
 
+// TagFromContext コンテキストから言語タグを取得する関数
 func TagFromContext(ctx context.Context) language.Tag {
 	if tag, ok := ctx.Value(tagKey).(language.Tag); ok {
 		return tag

@@ -7,6 +7,8 @@ import (
 )
 
 func Test_Redis(t *testing.T) {
+	t.Parallel()
+
 	r, err := app.Redis()
 	if err != nil {
 		t.Fatal(err)

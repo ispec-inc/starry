@@ -9,6 +9,8 @@ import (
 )
 
 func TestPhoneNumber_Validate(t *testing.T) {
+	t.Parallel()
+
 	type (
 		give struct {
 			phone organization.PhoneNumber
@@ -64,6 +66,8 @@ func TestPhoneNumber_Validate(t *testing.T) {
 		test := tests[i]
 
 		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
 			err := test.give.phone.Validate()
 			if test.want.err != nil {
 				assert.EqualError(t, test.want.err, err.Error())

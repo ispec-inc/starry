@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -10,10 +11,12 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+// API APIサーバーの構造体
 type API struct {
 	server *http.Server
 }
 
+// NewAPI APIサーバーのコンストラクタ
 func NewAPI() (API, error) {
 	s, err := newServer()
 	if err != nil {
@@ -25,6 +28,7 @@ func NewAPI() (API, error) {
 	}, nil
 }
 
+// Run APIサーバーを起動する関数
 func (a API) Run(ctx context.Context) {
 	g, ctx := errgroup.WithContext(ctx)
 	g.Go(func() error {
@@ -49,10 +53,11 @@ func (a API) Run(ctx context.Context) {
 		break
 	}
 
-	a.server.Shutdown(ctx)
+	if err := a.server.Shutdown(ctx); err != nil {
+		log.Printf("error: %v\n", err)
+	}
 
-	err := g.Wait()
-	if err != nil {
+	if err := g.Wait(); err != nil {
 		os.Exit(2)
 	}
 }

@@ -7,6 +7,8 @@ import (
 )
 
 func Test_MySQL(t *testing.T) {
+	t.Parallel()
+
 	db, err := app.MySQL()
 	if err != nil {
 		t.Fatal(err)

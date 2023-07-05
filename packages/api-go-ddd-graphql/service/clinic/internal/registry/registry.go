@@ -1,9 +1,11 @@
 package registry
 
+// Registry インターフェースに対して実装を提供するレジストリ
 type Registry struct {
 	repo Repository
 }
 
+// New Registryのコンストラクタ
 func New() (Registry, error) {
 	repo, err := NewRepository()
 	if err != nil {
@@ -15,6 +17,7 @@ func New() (Registry, error) {
 	}, nil
 }
 
+// Repository リポジトリのレジストリを返す
 func (r Registry) Repository() Repository {
 	return r.repo
 }

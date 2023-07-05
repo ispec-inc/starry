@@ -3,8 +3,6 @@ package gqlerror
 import (
 	"context"
 	"errors"
-
-	"github.com/ispec-inc/starry/api-go-ddd-graphql/api/lang"
 )
 
 // Error GraphQLのエラー
@@ -32,7 +30,7 @@ func (h Handler) New(ctx context.Context, err error) Error {
 			},
 		}
 
-		tag := lang.TagFromContext(ctx)
+		tag := TagFromContext(ctx)
 		v.extensions["message"] = pre.Lang2Msg[tag]
 		return v
 	}
