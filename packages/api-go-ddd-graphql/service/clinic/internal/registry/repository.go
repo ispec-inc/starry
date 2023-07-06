@@ -31,5 +31,5 @@ func (r Repository) DB() *app.DB {
 
 // NewOrganizationQuery query.Organizationの実装を返す
 func (r Repository) NewOrganizationQuery() organization.Query {
-	return reader.NewOrganization()
+	return reader.Organization{}
 }

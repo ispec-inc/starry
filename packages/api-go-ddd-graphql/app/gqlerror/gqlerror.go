@@ -18,6 +18,8 @@ type Handler struct {
 	Presenters map[error]Presenter
 }
 
+// NewHandler エラーハンドラを生成するコンストラクタ。
+// エラーの言語別メッセージを登録し、`Handler.New`でエラーを生成する際にmessageパッケージを利用してメッセージを生成する
 func NewHandler(pre map[error]Presenter) (Handler, error) {
 	for err, p := range pre {
 		for tag, msg := range p.Lang2Msg {

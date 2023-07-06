@@ -89,7 +89,7 @@ func TestOrganization_Get(t *testing.T) {
 			logger := log.With().Caller().Str(tt.name, t.Name()).Logger()
 			ctx = logger.WithContext(ctx)
 
-			o := reader.NewOrganization()
+			o := reader.Organization{}
 			orgs, err := o.Get(ctx, db, tt.give.ids)
 			if err != nil {
 				t.Fatal(err)
