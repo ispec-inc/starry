@@ -9,12 +9,14 @@ import (
 
 // Error GraphQLのエラー
 type Error struct {
-	s          string
+	s string
+	// extensions GraphQLのエラーの拡張情報。最終的にユーザーに表示される
 	extensions map[string]interface{}
 }
 
 // Handler GraphQLのエラーハンドラ
 type Handler struct {
+	// Presenters エラーの言語別メッセージを生成するためのmap
 	Presenters map[error]Presenter
 }
 
