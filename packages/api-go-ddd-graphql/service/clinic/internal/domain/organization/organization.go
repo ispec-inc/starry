@@ -14,11 +14,17 @@ const (
 
 // Organization 組織を表現するドメインモデルの集約
 type Organization struct {
-	ID          ID
-	Name        Name
-	Alias       Alias
-	Type        OrganizationType
-	Contact     PhoneNumber
+	// ID 組織のID
+	ID ID
+	// Name 名前
+	Name Name
+	// Alias 別名
+	Alias Alias
+	// Type 種類
+	Type Type
+	// Contact 連絡先
+	Contact PhoneNumber
+	// Description 説明
 	Description Description
 }
 
@@ -29,7 +35,7 @@ type ID domain.ID
 func RegisterOrganization(
 	name Name,
 	alias Alias,
-	otype OrganizationType,
+	otype Type,
 	contact PhoneNumber,
 	description Description,
 ) (Organization, error) {

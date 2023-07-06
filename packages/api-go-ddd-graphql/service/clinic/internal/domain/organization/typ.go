@@ -1,19 +1,19 @@
 package organization
 
-// OrganizationType 組織の種別
-type OrganizationType int
+// Type 組織の種別
+type Type int
 
 var (
-	OrganizationTypeProv int32 = 1 // OrganizationTypeProv 事業者
-	OrganizationTypeOrg  int32 = 2 // OrganizationTypeOrg 組織
+	TypeProv int32 = 1 // OrganizationTypeProv 事業者
+	TypeOrg  int32 = 2 // OrganizationTypeOrg 組織
 )
 
-// OrganizationTypeString 組織の種別を文字列に変換する
-func OrganizationTypeString(v int32) string {
+// TypeString 組織の種別を文字列に変換する
+func TypeString(v int32) string {
 	switch v {
-	case OrganizationTypeProv:
+	case TypeProv:
 		return "PROV"
-	case OrganizationTypeOrg:
+	case TypeOrg:
 		return "ORG"
 	default:
 		return ""
@@ -24,9 +24,9 @@ func OrganizationTypeString(v int32) string {
 func NewType(v string) int32 {
 	switch v {
 	case "PROV":
-		return OrganizationTypeProv
+		return TypeProv
 	case "ORG":
-		return OrganizationTypeOrg
+		return TypeOrg
 	default:
 		return 0
 	}

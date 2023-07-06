@@ -58,7 +58,7 @@ linters-settings:
     severity: error
     rules:
       - name: exported
-        arguments: ["checkPrivateReceivers","disableStutteringCheck"]
+        arguments: ["checkPrivateReceivers", "sayRepetitiveInsteadOfStutters"]
       - name: if-return
 
   unused:
