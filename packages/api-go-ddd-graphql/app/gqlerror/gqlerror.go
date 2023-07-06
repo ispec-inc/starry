@@ -3,6 +3,8 @@ package gqlerror
 import (
 	"context"
 	"errors"
+
+	"golang.org/x/text/message"
 )
 
 // Error GraphQLのエラー
@@ -14,6 +16,20 @@ type Error struct {
 // Handler GraphQLのエラーハンドラ
 type Handler struct {
 	Presenters map[error]Presenter
+}
+
+func NewHandler(pre map[error]Presenter) (Handler, error) {
+	for err, p := range pre {
+		for tag, msg := range p.Lang2Msg {
+			if err := message.SetString(tag, err.Error(), msg); err != nil {
+				return Handler{}, err
+			}
+		}
+	}
+
+	return Handler{
+		Presenters: pre,
+	}, nil
 }
 
 // New エラーを生成する
@@ -31,7 +47,9 @@ func (h Handler) New(ctx context.Context, err error) Error {
 		}
 
 		tag := TagFromContext(ctx)
-		v.extensions["message"] = pre.Lang2Msg[tag]
+		msg := message.NewPrinter(tag).Sprintf(err.Error())
+
+		v.extensions["message"] = msg
 		return v
 	}
 

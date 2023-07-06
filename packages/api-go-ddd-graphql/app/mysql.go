@@ -47,6 +47,11 @@ func (d *DB) Get() *gorm.DB {
 	return d.gorm
 }
 
+// Transaction gormのトランザクションを実行する
+func (d *DB) Transaction(f func(*gorm.DB) error) error {
+	return d.gorm.Transaction(f)
+}
+
 // MySQL はMySQLのクライアントを返す
 // sync.Onceを使うことで、複数回この関数が呼ばれても、クライアントは一度だけしか生成されないようにしている
 func MySQL() (*DB, error) {

@@ -15,17 +15,10 @@ import (
 var _ organization.Query = (*Organization)(nil)
 
 // Organization query.Organizationの実装
-type Organization struct {
-	// MySQL DB
-}
+type Organization struct{}
 
-// NewOrganization Organizationのコンストラクタ
-func NewOrganization() Organization {
-	return Organization{}
-}
-
-// Get 指定したIDのOrganizationを取得する
-// idsが空の場合は全件取得する
+// Get 指定したIDのOrganizationを取得する。idsが空の場合は全件取得する。
+// 意図せず全件取得される可能性があるため、ユースケース層でハンドリングすること。
 func (o Organization) Get(ctx context.Context, tx *app.DB, ids []domain.ID) ([]organization.Organization, error) {
 	orgs := []entity.Organization{}
 	if err := o.preload(ctx, tx.Get()).Find(&orgs, ids).Error; err != nil {
