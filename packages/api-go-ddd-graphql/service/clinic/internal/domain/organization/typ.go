@@ -4,8 +4,8 @@ package organization
 type Type int
 
 var (
-	TypeProv int32 = 1 // OrganizationTypeProv 事業者
-	TypeOrg  int32 = 2 // OrganizationTypeOrg 組織
+	TypeProv int32 = 1 // TypeProv 事業者
+	TypeOrg  int32 = 2 // TypeOrg 組織
 )
 
 // TypeString 組織の種別を文字列に変換する
