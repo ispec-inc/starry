@@ -1,16 +1,7 @@
 package config
 
-import (
-	"github.com/caarlos0/env/v6"
-)
-
-func init() {
-	if err := env.Parse(&RedisMsgbs); err != nil {
-		panic(err)
-	}
-}
-
-var RedisMsgbs redis
+// Redis Redisの設定
+var Redis redis
 
 type redis struct {
 	Host string `env:"REDIS_MSGBS_HOST"`

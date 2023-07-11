@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// Router APIのルーターの設定
 var Router router
 
 type router struct {
