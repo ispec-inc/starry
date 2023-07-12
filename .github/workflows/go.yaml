@@ -13,4 +13,4 @@ jobs:
         with:
           reporter: github-pr-review
           level: warning
-          workdir: packages/api-go-ddd-graphql
+          workdir: packages/orion
