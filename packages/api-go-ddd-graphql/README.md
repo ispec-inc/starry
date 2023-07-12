@@ -1,8 +1,5 @@
-# API
+# Orion
 Go + GraphQL + DDDで設計されているWebAPIです。
-
-## ドキュメント
-- [ソフトウェアアーキテクチャ](./docs/software-architecture.md)
 
 ## 起動方法
 ```
