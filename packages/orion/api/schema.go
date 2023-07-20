@@ -11,6 +11,7 @@ import (
 //go:embed schema/*.graphql schema/type/*.graphql
 var content embed.FS
 
+// SchemaString schema.graphqlを読み込んで文字列を返す
 func SchemaString() (string, error) {
 	var buf bytes.Buffer
 
