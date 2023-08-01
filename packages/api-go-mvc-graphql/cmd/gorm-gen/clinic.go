@@ -8,8 +8,6 @@ import (
 func genOrganization(g *gen.Generator) {
 	g.ApplyBasic(g.GenerateModel(
 		"organizations",
-		gen.FieldNewTag("id", `validate:"required,ulid"`),
-		gen.FieldNewTag("organizational_detail", `validate:"required"`),
 		gen.FieldRelate(
 			field.HasOne,
 			"OrganizationDetail",
