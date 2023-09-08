@@ -13,11 +13,15 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// CommonConfig 共通の設定
 type CommonConfig struct {
-	Timeout      time.Duration
+	// Timeout タイムアウト時間
+	Timeout time.Duration
+	// AllowOrigins 許可するオリジン
 	AllowOrigins []string
 }
 
+// Common 共通のミドルウェアを設定
 func Common(r *chi.Mux, c CommonConfig) *chi.Mux {
 	r.Use(middleware.RequestID)
 	r.Use(middleware.RealIP)
@@ -40,6 +44,7 @@ func Common(r *chi.Mux, c CommonConfig) *chi.Mux {
 
 const logType = "request"
 
+// RequestLogger リクエストのログを出力
 func RequestLogger(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		zerolog.TimeFieldFormat = zerolog.TimeFormatUnix

@@ -16,6 +16,7 @@ type gqlController struct {
 	clinic.Controller
 }
 
+// PORT サーバのポート番号
 const PORT = 9000
 
 // newServer http.Serverを生成する。内部で各サービスのコントローラを呼び出し、schemaとの整合性チェックする

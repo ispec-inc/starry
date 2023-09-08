@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// Response jsonを返す
 func Response(w http.ResponseWriter, body interface{}) {
 	w.Header().Add("Content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -15,6 +16,7 @@ func Response(w http.ResponseWriter, body interface{}) {
 	}
 }
 
+// Text テキストを返す
 func Text(w http.ResponseWriter, body interface{}) {
 	w.Header().Add("Content-type", "text/plain")
 	w.WriteHeader(http.StatusOK)
