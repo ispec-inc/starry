@@ -1,6 +1,6 @@
 module github.com/ispec-inc/starry/orion
 
-go 1.18
+go 1.20
 
 require (
 	github.com/DATA-DOG/go-txdb v0.1.5
