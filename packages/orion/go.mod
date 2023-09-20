@@ -1,11 +1,11 @@
 module github.com/ispec-inc/starry/orion
 
-go 1.18
+go 1.20
 
 require (
 	github.com/DATA-DOG/go-txdb v0.1.5
 	github.com/caarlos0/env/v6 v6.9.1
-	github.com/go-chi/chi v1.5.4
+	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/cors v1.2.0
 	github.com/google/go-cmp v0.5.9
 	github.com/google/uuid v1.3.0
