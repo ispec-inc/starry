@@ -10,7 +10,7 @@ import (
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
 )
 
-func TestNew(t *testing.T) {
+func TestNewName(t *testing.T) {
 	t.Parallel()
 
 	type (

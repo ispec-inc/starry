@@ -1,10 +1,6 @@
 package registry
 
-import (
-	"github.com/ispec-inc/starry/orion/app"
-	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
-	"github.com/ispec-inc/starry/orion/service/clinic/internal/infra/reader"
-)
+import "github.com/ispec-inc/starry/orion/app"
 
 // Repository リポジトリのレジストリ
 type Repository struct {
@@ -31,5 +27,5 @@ func (r Repository) DB() *app.DB {
 
 // NewOrganizationQuery query.Organizationの実装を返す
 func (r Repository) NewOrganizationQuery() organization.Query {
-	return reader.Organization{}
+	return repository.Organization{}
 }
