@@ -42,6 +42,7 @@ func (c Controller) Organization(ctx context.Context, args struct {
 	ipt := uc.GetOrganizationInput{
 		ID: domain.ID(args.ID),
 	}
+
 	get := uc.NewGetOrganization(c.registry)
 
 	opt, err := get.Do(ctx, ipt)

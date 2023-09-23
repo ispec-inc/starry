@@ -7,17 +7,32 @@ import (
 )
 
 const (
-	maxOrganizationNameChars int = 50
+	maxOrganizationNameChars  int = 50
+	maxOrganizationAliasChars int = 50
 )
 
-// Name 組織名
-type Name string
+// Name 組織名の値オブジェクト
+type Name struct {
+	Name  domain.String
+	Alias domain.String
+}
 
-// Validate 組織名のバリデーション
-func (n Name) Validate() error {
-	if err := domain.String(n).ValidateLength(1, maxOrganizationNameChars); err != nil {
-		return fmt.Errorf("alias: %w", err)
+func NewName(
+	name string,
+	alias string,
+) (Name, error) {
+	n := domain.String(name)
+	if err := n.ValidateLength(1, maxOrganizationNameChars); err != nil {
+		return Name{}, fmt.Errorf("name: %w", err)
 	}
 
-	return nil
+	a := domain.String(alias)
+	if err := a.ValidateLength(1, maxOrganizationAliasChars); err != nil {
+		return Name{}, fmt.Errorf("alias: %w", err)
+	}
+
+	return Name{
+		Name:  n,
+		Alias: a,
+	}, nil
 }

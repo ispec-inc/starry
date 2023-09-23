@@ -29,12 +29,12 @@ func InitMySQL() {
 }
 
 // PrepareDB テスト用のDBの準備。シードデータを渡すとテスト用のDBにデータを投入する
-func PrepareDB(t *testing.T, name string, seeds []interface{}) (*app.DB, func()) {
+func PrepareDB(t *testing.T, seeds []interface{}) (*app.DB, func()) {
 	t.Helper()
 
 	dialector := mysql.New(mysql.Config{
 		DriverName: testDriver,
-		DSN:        name,
+		DSN:        t.Name(),
 	})
 	db, err := gorm.Open(dialector)
 	if err != nil {

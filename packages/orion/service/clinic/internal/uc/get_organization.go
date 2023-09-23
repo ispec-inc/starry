@@ -2,7 +2,6 @@ package uc
 
 import (
 	"context"
-	"errors"
 
 	"github.com/ispec-inc/starry/orion/app"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain"
@@ -41,18 +40,19 @@ func (g GetOrganization) Do(ctx context.Context, ipt GetOrganizationInput) (GetO
 
 	defer tx.Rollback()
 
-	os, err := g.organizationQuery.Get(ctx, tx, []domain.ID{ipt.ID})
+	orgs, err := g.organizationQuery.Get(ctx, tx, []domain.ID{ipt.ID})
 	if err != nil {
 		return GetOrganizationOutput{}, err
 	}
 
-	if len(os) == 0 {
-		return GetOrganizationOutput{}, errors.New("organization not found")
+	org, err := orgs.First()
+	if err != nil {
+		return GetOrganizationOutput{}, err
 	}
 
 	if err := tx.Commit(); err != nil {
-		return GetOrganizationOutput{}, errors.New("organization not found")
+		return GetOrganizationOutput{}, err
 	}
 
-	return GetOrganizationOutput{Organization: os[0]}, nil
+	return GetOrganizationOutput{Organization: org}, nil
 }
