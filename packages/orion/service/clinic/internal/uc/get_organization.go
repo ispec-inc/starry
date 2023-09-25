@@ -4,20 +4,19 @@ import (
 	"context"
 
 	"github.com/ispec-inc/starry/orion/app"
-	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/registry"
 )
 
 // GetOrganization Organizationを取得するユースケース
 type GetOrganization struct {
-	db                *app.DB
-	organizationQuery organization.Query
+	db            *app.DB
+	orgRepository organization.Repository
 }
 
 // GetOrganizationInput Organizationを取得するユースケースの入力
 type GetOrganizationInput struct {
-	ID domain.ID
+	ID organization.ID
 }
 
 // GetOrganizationOutput Organizationを取得するユースケースの出力
@@ -28,8 +27,8 @@ type GetOrganizationOutput struct {
 // NewGetOrganization GetOrganizationのコンストラクタ
 func NewGetOrganization(r registry.Registry) GetOrganization {
 	return GetOrganization{
-		db:                r.Repository().DB(),
-		organizationQuery: r.Repository().NewOrganizationQuery(),
+		db:            r.Repository().DB(),
+		orgRepository: r.Repository().NewOrganizationRepository(),
 	}
 }
 
@@ -40,9 +39,9 @@ func (g GetOrganization) Do(ctx context.Context, ipt GetOrganizationInput) (GetO
 
 	defer tx.Rollback()
 
-	orgs, err := g.organizationQuery.Get(ctx, tx, []domain.ID{ipt.ID})
+	orgs, err := g.orgRepository.Get(ctx, tx, []organization.ID{ipt.ID})
 	if err != nil {
-		return GetOrganizationOutput{}, err
+		return GetOrganizationOutput{}, app.ErrUnauthorized
 	}
 
 	org, err := orgs.First()

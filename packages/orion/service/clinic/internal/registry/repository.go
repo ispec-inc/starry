@@ -29,7 +29,7 @@ func (r Repository) DB() *app.DB {
 	return r.db
 }
 
-// NewOrganizationQuery query.Organizationの実装を返す
-func (r Repository) NewOrganizationQuery() organization.Repository {
+// NewOrganizationRepository repository.Organizationの実装を返す
+func (r Repository) NewOrganizationRepository() organization.Repository {
 	return repository.Organization{}
 }
