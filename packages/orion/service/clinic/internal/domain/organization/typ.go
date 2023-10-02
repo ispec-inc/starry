@@ -4,8 +4,10 @@ package organization
 type Type uint
 
 const (
+	// TypeProv 事業者
 	TypeProv = "PROV"
-	TypeOrg  = "ORG"
+	// TypeOrg 組織
+	TypeOrg = "ORG"
 )
 
 var (

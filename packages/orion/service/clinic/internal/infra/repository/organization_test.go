@@ -61,7 +61,7 @@ func TestOrganization_Get(t *testing.T) {
 		seeds = append(seeds, &ents[i])
 	}
 
-	db, cleanup := test.PrepareDB(t, "Organization_List", seeds)
+	db, cleanup := test.PrepareDB(t, seeds)
 	t.Cleanup(cleanup)
 
 	tests := []struct {

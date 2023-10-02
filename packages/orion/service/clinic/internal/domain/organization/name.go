@@ -17,6 +17,7 @@ type Name struct {
 	Alias domain.String
 }
 
+// NewName 組織名の値オブジェクトを生成する
 func NewName(
 	name string,
 	alias string,
