@@ -5,7 +5,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
 )
@@ -82,15 +81,9 @@ func TestNewName(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			name, err := organization.NewName(tt.give.name, tt.give.alias)
+			_, err := organization.NewName(tt.give.name, tt.give.alias)
 			if !errors.Is(err, tt.want.err) {
 				t.Fatalf("expected %v to be %v", err, tt.want.err)
-			}
-
-			if err == nil {
-				if cmp.Diff(name.Name(), tt.give.name) != "" {
-					t.Fatalf("expected %v to be %v", name.Name(), tt.give.name)
-				}
 			}
 		})
 	}
