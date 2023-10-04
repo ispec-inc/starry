@@ -15,10 +15,10 @@ func NewPhoneNumber(
 ) (PhoneNumber, error) {
 	re := regexp.MustCompile(`^[0-9]{10,11}$`)
 	if re.MatchString(string(p)) {
-		return "", nil
+		return PhoneNumber(p), nil
 	}
 
-	return PhoneNumber(p), nil
+	return "", ErrPhoneNumberInvalidFormat
 }
 
 func (p PhoneNumber) String() string {

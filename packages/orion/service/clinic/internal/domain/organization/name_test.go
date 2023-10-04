@@ -28,7 +28,7 @@ func TestNewName(t *testing.T) {
 		want want
 	}{
 		{
-			name: "no_error",
+			name: "[OK] return Name",
 			give: give{
 				name:  "鈴木歯科医院",
 				alias: "suzuki",
@@ -38,7 +38,7 @@ func TestNewName(t *testing.T) {
 			},
 		},
 		{
-			name: "error_name_is_empty",
+			name: "[NG] empty name",
 			give: give{
 				name:  "",
 				alias: "suzuki",
@@ -48,7 +48,7 @@ func TestNewName(t *testing.T) {
 			},
 		},
 		{
-			name: "error_alias_is_empty",
+			name: "[NG] empty alias",
 			give: give{
 				name:  "鈴木歯科医院",
 				alias: "",
@@ -58,18 +58,20 @@ func TestNewName(t *testing.T) {
 			},
 		},
 		{
-			name: "name_is_just_50",
+			name: "[OK] name is just 50",
 			give: give{
-				name: strings.Repeat("あ", 50),
+				name:  strings.Repeat("あ", 50),
+				alias: "suzuki",
 			},
 			want: want{
 				err: nil,
 			},
 		},
 		{
-			name: "error_name_is_over_50",
+			name: "[NG] name is over 50",
 			give: give{
-				name: strings.Repeat("あ", 51),
+				name:  strings.Repeat("あ", 51),
+				alias: "suzuki",
 			},
 			want: want{
 				err: domain.ErrStringInvalidLength,
