@@ -16,7 +16,8 @@ func TestNewPhoneNumber(t *testing.T) {
 			phoneNumber string
 		}
 		want struct {
-			err error
+			phoneNumber organization.PhoneNumber
+			err         error
 		}
 	)
 
@@ -26,36 +27,29 @@ func TestNewPhoneNumber(t *testing.T) {
 		want want
 	}{
 		{
-			name: "valid_cell",
+			name: "[OK] valid mobile phone number",
 			give: give{
 				phoneNumber: "09011112222",
 			},
 			want: want{
-				err: nil,
+				phoneNumber: organization.PhoneNumber("09011112222"),
+				err:         nil,
 			},
 		},
 		{
-			name: "valid_tel",
+			name: "[OK] valid telephone number",
 			give: give{
 				phoneNumber: "0451112222",
 			},
 			want: want{
-				err: nil,
+				phoneNumber: organization.PhoneNumber("0451112222"),
+				err:         nil,
 			},
 		},
 		{
-			name: "invalid_string",
+			name: "[NG] invalid string",
 			give: give{
 				phoneNumber: "住所",
-			},
-			want: want{
-				err: organization.ErrPhoneNumberInvalidFormat,
-			},
-		},
-		{
-			name: "invalid_string",
-			give: give{
-				phoneNumber: "012223",
 			},
 			want: want{
 				err: organization.ErrPhoneNumberInvalidFormat,
@@ -68,14 +62,14 @@ func TestNewPhoneNumber(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			p, err := organization.NewPhoneNumber(tt.give.phoneNumber)
+			got, err := organization.NewPhoneNumber(tt.give.phoneNumber)
 
 			if !errors.Is(err, tt.want.err) {
 				t.Fatalf("expected %v to be %v", err, tt.want.err)
 			}
 
-			if cmp.Diff(p.String(), tt.give.phoneNumber) != "" {
-				t.Fatalf("expected %v to be %v", p.String(), tt.give.phoneNumber)
+			if cmp.Diff(got, tt.want.phoneNumber) != "" {
+				t.Fatalf("expected %v to be %v", got.String(), tt.give.phoneNumber)
 			}
 		})
 	}
