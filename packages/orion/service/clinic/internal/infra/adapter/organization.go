@@ -43,10 +43,16 @@ func OrganizationListFromEntityList(ens []entity.Organization) (organization.Lis
 			return organization.List{}, err
 		}
 
+		phone, err := organization.NewPhoneNumber(ens[i].OrganizationDetail.Contact)
+		if err != nil {
+			return organization.List{}, err
+		}
+
 		ms[i] = organization.Organization{
-			ID:   organization.ID(ens[i].ID),
-			Name: name,
-			Type: typ,
+			ID:          organization.ID(ens[i].ID),
+			Name:        name,
+			Type:        typ,
+			PhoneNumber: phone,
 		}
 	}
 
