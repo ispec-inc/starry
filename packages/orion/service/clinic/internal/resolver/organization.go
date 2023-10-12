@@ -17,5 +17,5 @@ func (c Organization) ID() graphql.ID {
 
 // Name Organizationの名前
 func (c Organization) Name() string {
-	return string(c.Model.Name)
+	return c.Model.Name.Name.String()
 }
