@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/ispec-inc/starry/orion/app"
-	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/registry"
 )
@@ -12,12 +11,12 @@ import (
 // GetOrganization Organizationを取得するユースケース
 type GetOrganization struct {
 	db                *app.DB
-	organizationQuery organization.Query
+	organizationQuery organization.Repository
 }
 
 // GetOrganizationInput Organizationを取得するユースケースの入力
 type GetOrganizationInput struct {
-	ID domain.ID
+	ID organization.ID
 }
 
 // GetOrganizationOutput Organizationを取得するユースケースの出力
@@ -40,7 +39,7 @@ func (g GetOrganization) Do(ctx context.Context, ipt GetOrganizationInput) (GetO
 
 	defer tx.Rollback()
 
-	orgs, err := g.organizationQuery.Get(ctx, tx, []domain.ID{ipt.ID})
+	orgs, err := g.organizationQuery.Get(ctx, tx, []organization.ID{ipt.ID})
 	if err != nil {
 		return GetOrganizationOutput{}, err
 	}

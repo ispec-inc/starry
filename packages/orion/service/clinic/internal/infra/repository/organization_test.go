@@ -123,7 +123,7 @@ func TestOrganization_Create(t *testing.T) {
 		}
 	)
 
-	db, cleanup := test.PrepareDB(t, "Organization_Create", []interface{}{})
+	db, cleanup := test.PrepareDB(t, []interface{}{})
 	t.Cleanup(cleanup)
 
 	org, err := organizationFactory(1)
