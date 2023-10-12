@@ -1,0 +1,21 @@
+name: go-test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - packages/orion/**
+      - .github/workflows/go-test.yml
+
+jobs:
+  test:
+    name: runner / gotest
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: initialize
+        run: make test
