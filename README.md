@@ -22,3 +22,11 @@ $ starry
 ```
 
 # テンプレートの開発
+
+## ADRの生成
+JavaScriptランタイムとして[bun](https://github.com/oven-sh/bun)のインストールが必要です。
+
+```
+make adr
+```
+生成されるファイルの名前は日付+タグ+タイトルとなります。(タグについては`ge=general`, `fe=front-end`, `be=back-end`となっています)

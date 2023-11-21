@@ -1,0 +1,8 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "dayjs": "^1.11.10",
+    "plop": "^4.0.0",
+    "username": "^7.0.0"
+  }
+}
