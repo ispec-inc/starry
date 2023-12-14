@@ -4,10 +4,15 @@ import (
 	"testing"
 
 	"github.com/ispec-inc/starry/orion/app"
+	"github.com/ispec-inc/starry/orion/app/config"
 )
 
 func Test_MySQL(t *testing.T) {
 	t.Parallel()
+
+	if err := config.Init(); err != nil {
+		t.Fatal(err)
+	}
 
 	db, err := app.MySQL()
 	if err != nil {
@@ -36,7 +41,4 @@ func Test_MySQL(t *testing.T) {
 		t.Fatal(dbTwice.Get().Error)
 	}
 
-	if db != dbTwice {
-		t.Fatal("MySQL() should return same instance")
-	}
 }

@@ -2,10 +2,8 @@ package uc
 
 import (
 	"context"
-	"errors"
 
 	"github.com/ispec-inc/starry/orion/app"
-	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/registry"
 )
@@ -13,12 +11,12 @@ import (
 // GetOrganization Organizationを取得するユースケース
 type GetOrganization struct {
 	db                *app.DB
-	organizationQuery organization.Query
+	organizationQuery organization.Repository
 }
 
 // GetOrganizationInput Organizationを取得するユースケースの入力
 type GetOrganizationInput struct {
-	ID domain.ID
+	ID organization.ID
 }
 
 // GetOrganizationOutput Organizationを取得するユースケースの出力
@@ -41,18 +39,19 @@ func (g GetOrganization) Do(ctx context.Context, ipt GetOrganizationInput) (GetO
 
 	defer tx.Rollback()
 
-	os, err := g.organizationQuery.Get(ctx, tx, []domain.ID{ipt.ID})
+	orgs, err := g.organizationQuery.Get(ctx, tx, []organization.ID{ipt.ID})
 	if err != nil {
 		return GetOrganizationOutput{}, err
 	}
 
-	if len(os) == 0 {
-		return GetOrganizationOutput{}, errors.New("organization not found")
+	org, err := orgs.First()
+	if err != nil {
+		return GetOrganizationOutput{}, err
 	}
 
 	if err := tx.Commit(); err != nil {
-		return GetOrganizationOutput{}, errors.New("organization not found")
+		return GetOrganizationOutput{}, err
 	}
 
-	return GetOrganizationOutput{Organization: os[0]}, nil
+	return GetOrganizationOutput{Organization: org}, nil
 }

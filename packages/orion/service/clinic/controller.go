@@ -5,7 +5,7 @@ import (
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/ispec-inc/starry/orion/app/gqlerror"
-	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain"
+	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/registry"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/resolver"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/uc"
@@ -40,8 +40,9 @@ func (c Controller) Organization(ctx context.Context, args struct {
 }) (resolver.Organization, error) {
 
 	ipt := uc.GetOrganizationInput{
-		ID: domain.ID(args.ID),
+		ID: organization.ID(args.ID),
 	}
+
 	get := uc.NewGetOrganization(c.registry)
 
 	opt, err := get.Do(ctx, ipt)

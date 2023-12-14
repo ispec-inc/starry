@@ -3,7 +3,7 @@ package registry
 import (
 	"github.com/ispec-inc/starry/orion/app"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
-	"github.com/ispec-inc/starry/orion/service/clinic/internal/infra/reader"
+	"github.com/ispec-inc/starry/orion/service/clinic/internal/infra/repository"
 )
 
 // Repository リポジトリのレジストリ
@@ -30,6 +30,6 @@ func (r Repository) DB() *app.DB {
 }
 
 // NewOrganizationQuery query.Organizationの実装を返す
-func (r Repository) NewOrganizationQuery() organization.Query {
-	return reader.Organization{}
+func (r Repository) NewOrganizationQuery() organization.Repository {
+	return repository.Organization{}
 }

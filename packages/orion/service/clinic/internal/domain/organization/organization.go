@@ -1,61 +1,50 @@
 package organization
 
 import (
-	"fmt"
-
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain"
 )
 
-// Organization 組織を表現するドメインモデルの集約
+// Organization 組織を表現する集約
 type Organization struct {
 	// ID 組織のID
 	ID ID
 	// Name 名前
 	Name Name
-	// Alias 別名
-	Alias Alias
 	// Type 種類
 	Type Type
-	// Contact 連絡先
-	Contact PhoneNumber
+	// PhoneNumber 電話番号
+	PhoneNumber PhoneNumber
 }
 
 // ID 組織のID
 type ID domain.ID
 
-// RegisterOrganization 組織を登録するドメインサービス
-func RegisterOrganization(
+// New 組織の集約を初期化するファクトリ
+func New(
 	name Name,
-	alias Alias,
 	otype Type,
-	contact PhoneNumber,
+	phoneNumber PhoneNumber,
 ) (Organization, error) {
 	id := domain.NewID()
 
 	o := Organization{
-		ID:      ID(id),
-		Name:    name,
-		Alias:   alias,
-		Type:    otype,
-		Contact: contact,
-	}
-
-	if err := o.Validate(); err != nil {
-		return Organization{}, fmt.Errorf("RegisterOrganization: %w", err)
+		ID:          ID(id),
+		Name:        name,
+		Type:        otype,
+		PhoneNumber: phoneNumber,
 	}
 
 	return o, nil
 }
 
-// Validate 組織のドメインモデルのバリデーション
-func (o Organization) Validate() error {
-	if err := o.Name.Validate(); err != nil {
-		return err
+// List Organizationの配列
+type List []Organization
+
+// First 配列の先頭のOrganizationを返し、 配列のサイズが0の場合はエラーを返す
+func (l List) First() (Organization, error) {
+	if len(l) == 0 {
+		return Organization{}, ErrNotFound
 	}
 
-	if err := o.Alias.Validate(); err != nil {
-		return err
-	}
-
-	return o.Contact.Validate()
+	return l[0], nil
 }

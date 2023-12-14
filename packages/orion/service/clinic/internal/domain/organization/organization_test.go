@@ -2,24 +2,42 @@ package organization_test
 
 import (
 	"errors"
-	"strings"
 	"testing"
 
-	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain"
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
 )
 
-func TestName_Validate(t *testing.T) {
+func TestNew(t *testing.T) {
 	t.Parallel()
 
 	type (
 		give struct {
-			name string
+			name             organization.Name
+			organizationType organization.Type
+			phoneNumber      organization.PhoneNumber
 		}
 		want struct {
+			org organization.Organization
 			err error
 		}
 	)
+
+	name, err := organization.NewName("鈴木歯科医院", "suzuki")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	typ, err := organization.NewType(1)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	phoneNumber, err := organization.NewPhoneNumber("09012345678")
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	tests := []struct {
 		name string
@@ -27,39 +45,19 @@ func TestName_Validate(t *testing.T) {
 		want want
 	}{
 		{
-			name: "no_error",
+			name: "[OK] return organization",
 			give: give{
-				name: "鈴木歯科医院",
+				name:             name,
+				organizationType: typ,
+				phoneNumber:      phoneNumber,
 			},
 			want: want{
+				org: organization.Organization{
+					Name:        name,
+					Type:        typ,
+					PhoneNumber: phoneNumber,
+				},
 				err: nil,
-			},
-		},
-		{
-			name: "error_name_is_empty",
-			give: give{
-				name: "",
-			},
-			want: want{
-				err: domain.ErrStringInvalidLength,
-			},
-		},
-		{
-			name: "name_is_just_50",
-			give: give{
-				name: strings.Repeat("あ", 50),
-			},
-			want: want{
-				err: nil,
-			},
-		},
-		{
-			name: "error_name_is_over_50",
-			give: give{
-				name: strings.Repeat("あ", 51),
-			},
-			want: want{
-				err: domain.ErrStringInvalidLength,
 			},
 		},
 	}
@@ -68,10 +66,13 @@ func TestName_Validate(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			name := organization.Name(tt.give.name)
-			err := name.Validate()
+			org, err := organization.New(tt.give.name, tt.give.organizationType, tt.give.phoneNumber)
 			if !errors.Is(err, tt.want.err) {
-				t.Fatalf("expected %v to be %v", err, tt.want.err)
+				t.Errorf("error: %v, want: %v", err, tt.want.err)
+			}
+
+			if diff := cmp.Diff(tt.want.org, org, cmpopts.IgnoreFields(organization.Organization{}, "ID")); diff != "" {
+				t.Errorf("diff: %v", diff)
 			}
 		})
 	}

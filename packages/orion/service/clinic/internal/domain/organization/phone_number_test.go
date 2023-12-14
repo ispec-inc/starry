@@ -4,18 +4,20 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/ispec-inc/starry/orion/service/clinic/internal/domain/organization"
 )
 
-func TestPhoneNumber_Validate(t *testing.T) {
+func TestNewPhoneNumber(t *testing.T) {
 	t.Parallel()
 
 	type (
 		give struct {
-			phone organization.PhoneNumber
+			phoneNumber string
 		}
 		want struct {
-			err error
+			phoneNumber organization.PhoneNumber
+			err         error
 		}
 	)
 
@@ -25,36 +27,29 @@ func TestPhoneNumber_Validate(t *testing.T) {
 		want want
 	}{
 		{
-			name: "valid_cell",
+			name: "[OK] valid mobile phone number",
 			give: give{
-				phone: "09011112222",
+				phoneNumber: "09011112222",
 			},
 			want: want{
-				err: nil,
+				phoneNumber: organization.PhoneNumber("09011112222"),
+				err:         nil,
 			},
 		},
 		{
-			name: "valid_tel",
+			name: "[OK] valid telephone number",
 			give: give{
-				phone: "0451112222",
+				phoneNumber: "0451112222",
 			},
 			want: want{
-				err: nil,
+				phoneNumber: organization.PhoneNumber("0451112222"),
+				err:         nil,
 			},
 		},
 		{
-			name: "invalid_string",
+			name: "[NG] invalid string",
 			give: give{
-				phone: "住所",
-			},
-			want: want{
-				err: organization.ErrPhoneNumberInvalidFormat,
-			},
-		},
-		{
-			name: "invalid_string",
-			give: give{
-				phone: "012223",
+				phoneNumber: "住所",
 			},
 			want: want{
 				err: organization.ErrPhoneNumberInvalidFormat,
@@ -67,11 +62,15 @@ func TestPhoneNumber_Validate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			err := tt.give.phone.Validate()
+			got, err := organization.NewPhoneNumber(tt.give.phoneNumber)
+
 			if !errors.Is(err, tt.want.err) {
 				t.Fatalf("expected %v to be %v", err, tt.want.err)
 			}
 
+			if cmp.Diff(got, tt.want.phoneNumber) != "" {
+				t.Fatalf("expected %v to be %v", got.String(), tt.give.phoneNumber)
+			}
 		})
 	}
 

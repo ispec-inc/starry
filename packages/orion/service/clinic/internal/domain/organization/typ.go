@@ -1,33 +1,36 @@
 package organization
 
 // Type 組織の種別
-type Type int
+type Type uint
 
-var (
-	TypeProv int32 = 1 // TypeProv 事業者
-	TypeOrg  int32 = 2 // TypeOrg 組織
+const (
+	// TypeProv 事業者
+	TypeProv = "PROV"
+	// TypeOrg 組織
+	TypeOrg = "ORG"
 )
 
-// TypeString 組織の種別を文字列に変換する
-func TypeString(v int32) string {
-	switch v {
-	case TypeProv:
-		return "PROV"
-	case TypeOrg:
-		return "ORG"
-	default:
-		return ""
+var (
+	typeProv Type = 1 // TypeProv 事業者
+	typeOrg  Type = 2 // TypeOrg 組織
+
+	typeToString = map[Type]string{
+		typeProv: TypeProv,
+		typeOrg:  TypeOrg,
 	}
-}
+)
 
 // NewType 組織の種別を文字列から生成する
-func NewType(v string) int32 {
-	switch v {
-	case "PROV":
-		return TypeProv
-	case "ORG":
-		return TypeOrg
-	default:
-		return 0
+func NewType(v uint) (Type, error) {
+	t := Type(v)
+	if _, ok := typeToString[t]; !ok {
+		return 0, ErrTypeStringIsInvalid
 	}
+
+	return t, nil
+}
+
+// String 文字列を返す
+func (t Type) String() string {
+	return typeToString[t]
 }
