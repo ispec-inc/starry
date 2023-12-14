@@ -19,3 +19,6 @@
 bin/*
 
 !.gitkeep
+
+# node
+node_modules

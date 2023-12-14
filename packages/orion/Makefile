@@ -1,7 +1,3 @@
-.PHONY: setup
-setup:
-	bash ./hack/start-docker.sh
-
 .PHONY: install-bun
 install-bun: ## パッケージのインストール
 	bun i
