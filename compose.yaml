@@ -1,9 +1,7 @@
-version: '3.8'
 services:
   mysql:
     container_name: starry-mysql
     image: mysql:8.0
-    platform: linux/x86_64
     environment:
       MYSQL_ROOT_HOST: '%'
       MYSQL_DATABASE: starry
