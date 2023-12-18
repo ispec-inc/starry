@@ -8,6 +8,9 @@
 </div>
 
 # Starry
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/39e1393357571ea9bd48/maintainability)](https://codeclimate.com/github/nothink/starry/maintainability)
+
 Starryは、Web APIやフロントエンドなどのアプリケーションを開発する際に有用なテンプレート群です。
 
 # テンプレートの利用方法
