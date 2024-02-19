@@ -1,0 +1,51 @@
+version: 3
+
+tasks:
+  default:
+    desc: Run ecspresso command
+    cmds:
+      - task: ecspresso
+
+  ecspresso:
+    desc: ecspresso run
+    vars:
+      env:
+        sh: |
+          echo {{ .config }} | cut -d "/" -f2
+    cmds:
+      - AWS_PROFILE=yourapp-{{.env}} TAG={{.tag}} ecspresso {{.cmd}} --config {{.config}}
+
+  portforward:
+    desc: portforward
+    vars:
+      env: '{{.env}}'
+      config: "env/{{.env}}/bastion/ecspresso.yaml"
+      sh: |
+      host:
+        sh: |
+          if [ {{.env}} = dev ]; then
+            echo dev-cluster.cluster-yourapp.ap-northeast-1.rds.amazonaws.com
+          elif [ {{.env}} = prod ]; then
+            echo prod-cluster.cluster-yourapp.ap-northeast-1.rds.amazonaws.com
+          fi
+    cmds:
+      - |
+        AWS_PROFILE=yourapp-{{.env}} \
+          ecspresso run --config {{.config}} \
+          --wait-until=running
+
+        id=$(AWS_PROFILE=yourapp-{{.env}} ecspresso tasks \
+          --config {{.config}} \
+          --output=json | \
+            jq -r '.containers[0].taskArn | split("/")[2]' | \
+            head -1 \
+          )
+        echo id: $id
+
+        AWS_PROFILE=yourapp-{{.env}} ecspresso exec \
+          --port-forward \
+          --port 3306 \
+          --local-port 3306 \
+          --config {{.config}} \
+          --host {{.host}} \
+          --id $id
