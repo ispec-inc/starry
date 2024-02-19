@@ -1,0 +1,26 @@
+region: ap-northeast-1
+cluster: dev-pcpk-api-cluster
+service_definition: service-def.jsonnet
+task_definition: task-def.jsonnet
+timeout: "20m0s"
+
+plugins:
+  - name: tfstate
+    config:
+      url: s3://pocopark-dev-terraform-state/dev/vpc/terraform.tfstate
+    func_prefix: vpc_
+
+  - name: tfstate
+    config:
+      url: s3://pocopark-dev-terraform-state/dev/alb/pocopark-api/terraform.tfstate
+    func_prefix: alb_
+
+  - name: tfstate
+    config:
+      url: s3://pocopark-dev-terraform-state/dev/ecs/pocopark-api/terraform.tfstate
+    func_prefix: ecs_
+
+  - name: tfstate
+    config:
+      url: s3://pocopark-dev-terraform-state/dev/sg/ecs/terraform.tfstate
+    func_prefix: sg_
