@@ -2,14 +2,14 @@ local env = import '../env.jsonnet';
 local vars = import 'vars.jsonnet';
 
 {
-  family: 'dev-pocopark-migration',
+  family: 'dev-yourapp-migration',
   cpu: vars.cpu,
   executionRoleArn: env.executionRoleArn,
   memory: vars.memory,
   networkMode: 'awsvpc',
   requiresCompatibilities: ['FARGATE'],
   tags: [
-    { key: 'App', value: 'pocopark' },
+    { key: 'App', value: 'yourapp' },
     { key: 'Env', value: 'dev' },
   ],
   containerDefinitions: [
@@ -32,7 +32,7 @@ local vars = import 'vars.jsonnet';
           Name: 'datadog',
           Host: 'http-intake.logs.datadoghq.com',
           TLS: 'on',
-          dd_service: 'pocopark',
+          dd_service: 'yourapp',
           dd_source: 'migration',
           dd_tags: 'env:dev',
           provider: 'ecs',

@@ -41,8 +41,8 @@ local vars = import 'vars.jsonnet';
   runningCount: 0,
   schedulingStrategy: 'REPLICA',
   tags: [
-    { key: 'App', value: 'pocopark' },
+    { key: 'App', value: 'yourapp' },
     { key: 'Env', value: 'dev' },
-    { key: 'Name', value: 'dev-pocopark-admin-api' },
+    { key: 'Name', value: 'dev-yourapp-admin-api' },
   ],
 }

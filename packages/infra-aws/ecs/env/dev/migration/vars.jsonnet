@@ -1,6 +1,6 @@
 {
   cpu: '512',
-  container_def_name: 'dev-pocopark-migration',
+  container_def_name: 'dev-yourapp-migration',
   memory: '1024',
   image: '020604330519.dkr.ecr.ap-northeast-1.amazonaws.com/dev-api',
   command: [
@@ -29,7 +29,7 @@
   },
   environments: {
     PORT: '3000',
-    HOST: 'pocopark.ispec.app',
+    HOST: 'yourapp.ispec.app',
     RAILS_ENV: 'production',
     DISABLE_DATABASE_ENVIRONMENT_CHECK: '1',
     QA_MODE: '1',
