@@ -13,15 +13,10 @@ type Repository struct {
 
 // NewRepository リポジトリのレジストリを返す
 // 内部でMySQLへのコネクションを確立する
-func NewRepository() (Repository, error) {
-	db, err := app.MySQL()
-	if err != nil {
-		return Repository{}, err
-	}
-	repo := Repository{
+func NewRepository(db *app.DB) Repository {
+	return Repository{
 		db: db,
 	}
-	return repo, nil
 }
 
 // DB MySQLへのコネクションを返す
