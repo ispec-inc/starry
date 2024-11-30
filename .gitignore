@@ -1,2 +1,5 @@
 #node
 node_modules
+.DS_Store
+.aider*
+.env
