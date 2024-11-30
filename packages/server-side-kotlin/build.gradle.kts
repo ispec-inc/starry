@@ -3,7 +3,6 @@ val kotlin_version: String by project
 plugins {
   alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.ktor)
-  alias(libs.plugins.kotlin.plugin.serialization)
   id("com.diffplug.spotless") version "6.0.0"
 }
 
