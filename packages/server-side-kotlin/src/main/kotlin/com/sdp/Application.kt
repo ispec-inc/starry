@@ -25,7 +25,8 @@ fun Application.graphQLModule() {
       queries = listOf(HelloWorldQuery())
     }
   }
-  routing {
+
+  install(Routing) {
     graphQLPostRoute()
     graphiQLRoute()
   }
