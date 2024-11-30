@@ -1,8 +1,5 @@
 package com.sdp
 
-import com.expediagroup.graphql.server.ktor.GraphQL
-import com.expediagroup.graphql.server.ktor.graphQLPostRoute
-import com.expediagroup.graphql.server.ktor.graphiQLRoute
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -12,22 +9,11 @@ fun main(args: Array<String>) {
   io.ktor.server.netty.EngineMain.main(args)
 }
 
-fun Application.graphQLModule() {
+fun Application.module() {
+  configureGraphQL()
   configureSecurity()
   configureSerialization()
   configureDatabases()
   configureFrameworks()
   configureHTTP()
-  configureRouting()
-  install(GraphQL) {
-    schema {
-      packages = listOf("com.sdp")
-      queries = listOf(HelloWorldQuery())
-    }
-  }
-
-  install(Routing) {
-    graphQLPostRoute()
-    graphiQLRoute()
-  }
 }

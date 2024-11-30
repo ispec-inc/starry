@@ -1,9 +1,7 @@
-val kotlin_version: String by project
-
 plugins {
   alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.ktor)
-  id("com.diffplug.spotless") version "6.0.0"
+  alias(libs.plugins.spotless)
 }
 
 group = "com.sdp"
@@ -27,8 +25,7 @@ spotless {
 }
 
 dependencies {
-  implementation("com.expediagroup", "graphql-kotlin-ktor-server", "8.2.1")
-
+  implementation(libs.graphql.ktor)
   implementation(libs.ktor.server.core)
   implementation(libs.ktor.server.auth)
   implementation(libs.ktor.serialization.kotlinx.json)

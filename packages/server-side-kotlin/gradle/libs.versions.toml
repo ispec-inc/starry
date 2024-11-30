@@ -4,8 +4,10 @@ exposed-version = "0.56.0"
 h2-version = "2.3.232"
 koin-version = "3.5.6"
 kotlin-version = "2.1.0"
-ktor-version = "3.0.1"
+ktor-version = "2.3.12"
 logback-version = "1.4.14"
+graphql-ktor-version="8.2.1"
+spotless-version="6.0.0"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor-version" }
@@ -23,8 +25,10 @@ logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "lo
 ktor-server-config-yaml = { module = "io.ktor:ktor-server-config-yaml-jvm", version.ref = "ktor-version" }
 ktor-server-test-host = { module = "io.ktor:ktor-server-test-host-jvm", version.ref = "ktor-version" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin-version" }
+graphql-ktor = { module = "com.expediagroup:graphql-kotlin-ktor-server", version.ref = "graphql-ktor-version" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor-version" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "$kotlin_version" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless-version" }
