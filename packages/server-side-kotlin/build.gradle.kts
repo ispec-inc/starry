@@ -27,6 +27,8 @@ spotless {
 }
 
 dependencies {
+  implementation("com.expediagroup", "graphql-kotlin-ktor-server", "8.2.1")
+
   implementation(libs.ktor.server.core)
   implementation(libs.ktor.server.auth)
   implementation(libs.ktor.serialization.kotlinx.json)
@@ -40,7 +42,6 @@ dependencies {
   implementation(libs.ktor.server.netty)
   implementation(libs.logback.classic)
   implementation(libs.ktor.server.config.yaml)
-  implementation("com.expediagroup:graphql-kotlin-server:5.3.0")
   testImplementation(libs.ktor.server.test.host)
   testImplementation(libs.kotlin.test.junit)
 }
