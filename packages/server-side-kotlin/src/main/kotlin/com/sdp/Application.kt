@@ -13,4 +13,5 @@ fun Application.module() {
   configureFrameworks()
   configureHTTP()
   configureRouting()
+  configureGraphQL()
 }
