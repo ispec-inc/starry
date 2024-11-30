@@ -19,7 +19,7 @@ fun Application.configureGraphQL() {
   routing {
     post("/graphql") {
       val request = call.receive<GraphQLRequest>()
-      val response: GraphQLResponse = withContext(Dispatchers.IO) { server.execute(request) }
+      val response: GraphQLResponse = withContext(Dispatchers.IO) { requestHandler.execute(request) }
       call.respond(response)
     }
   }
