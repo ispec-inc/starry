@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.ktor)
   alias(libs.plugins.kotlin.plugin.serialization)
+  id("com.diffplug.spotless") version "6.0.0"
 }
 
 group = "com.sdp"
@@ -18,6 +19,13 @@ application {
 }
 
 repositories { mavenCentral() }
+
+spotless {
+  kotlin {
+    target("**/*.kt")
+    ktfmt()
+  }
+}
 
 dependencies {
   implementation(libs.ktor.server.core)
