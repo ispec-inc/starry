@@ -12,7 +12,6 @@ fun main(args: Array<String>) {
 fun Application.module() {
   configureGraphQL()
   configureSecurity()
-  configureSerialization()
   configureDatabases()
   configureFrameworks()
   configureHTTP()

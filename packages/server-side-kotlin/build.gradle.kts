@@ -24,6 +24,10 @@ spotless {
   }
 }
 
+tasks.test {
+  useJUnitPlatform()
+}
+
 dependencies {
   implementation(libs.graphql.ktor)
   implementation(libs.ktor.server.core)
@@ -41,4 +45,7 @@ dependencies {
   implementation(libs.ktor.server.config.yaml)
   testImplementation(libs.ktor.server.test.host)
   testImplementation(libs.kotlin.test.junit)
+  testImplementation(libs.kotest.junit)
+  testImplementation(libs.kotest.assertions.core)
+  testImplementation(kotlin("test"))
 }

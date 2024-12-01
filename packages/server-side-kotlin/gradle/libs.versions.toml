@@ -8,6 +8,8 @@ ktor-version = "2.3.12"
 logback-version = "1.4.14"
 graphql-ktor-version="8.2.1"
 spotless-version="6.0.0"
+atrium-version="1.2.0"
+kotest-version="5.9.1"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor-version" }
@@ -24,7 +26,9 @@ ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "k
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
 ktor-server-config-yaml = { module = "io.ktor:ktor-server-config-yaml-jvm", version.ref = "ktor-version" }
 ktor-server-test-host = { module = "io.ktor:ktor-server-test-host-jvm", version.ref = "ktor-version" }
-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin-version" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin-version" }
+kotest-junit = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest-version"}
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest-version"}
 graphql-ktor = { module = "com.expediagroup:graphql-kotlin-ktor-server", version.ref = "graphql-ktor-version" }
 
 [plugins]
