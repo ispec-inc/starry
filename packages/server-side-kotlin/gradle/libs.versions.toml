@@ -1,0 +1,38 @@
+
+[versions]
+exposed-version = "0.56.0"
+h2-version = "2.3.232"
+koin-version = "3.5.6"
+kotlin-version = "2.1.0"
+ktor-version = "2.3.12"
+logback-version = "1.4.14"
+graphql-ktor-version="8.2.1"
+spotless-version="6.0.0"
+atrium-version="1.2.0"
+kotest-version="5.9.1"
+
+[libraries]
+ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor-version" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth-jvm", version.ref = "ktor-version" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm", version.ref = "ktor-version" }
+ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation-jvm", version.ref = "ktor-version" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed-version" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed-version" }
+h2 = { module = "com.h2database:h2", version.ref = "h2-version" }
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin-version" }
+koin-logger-slf4j = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin-version" }
+ktor-server-cors = { module = "io.ktor:ktor-server-cors-jvm", version.ref = "ktor-version" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor-version" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
+ktor-server-config-yaml = { module = "io.ktor:ktor-server-config-yaml-jvm", version.ref = "ktor-version" }
+ktor-server-test-host = { module = "io.ktor:ktor-server-test-host-jvm", version.ref = "ktor-version" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin-version" }
+kotest-junit = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest-version"}
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest-version"}
+graphql-ktor = { module = "com.expediagroup:graphql-kotlin-ktor-server", version.ref = "graphql-ktor-version" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor-version" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "$kotlin_version" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless-version" }
