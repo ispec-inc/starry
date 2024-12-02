@@ -4,6 +4,8 @@ plugins {
   alias(libs.plugins.spotless)
 }
 
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+
 group = "com.sdp"
 
 version = "0.0.1"
@@ -24,9 +26,7 @@ spotless {
   }
 }
 
-tasks.test {
-  useJUnitPlatform()
-}
+tasks.test { useJUnitPlatform() }
 
 dependencies {
   implementation(libs.graphql.ktor)
