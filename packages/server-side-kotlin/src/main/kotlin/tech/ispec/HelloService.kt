@@ -1,4 +1,4 @@
-package com.sdp
+package tech.ispec
 
 fun interface HelloService {
   fun sayHello()

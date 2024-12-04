@@ -1,4 +1,4 @@
-package com.sdp
+package tech.ispec
 
 import com.expediagroup.graphql.server.Schema
 

@@ -1,18 +1,18 @@
-package com.sdp
+package tech.ispec
 
 import com.expediagroup.graphql.server.ktor.GraphQL
 import com.expediagroup.graphql.server.ktor.graphQLPostRoute
 import com.expediagroup.graphql.server.ktor.graphiQLRoute
-import com.sdp.controller.HelloWorldQuery
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import tech.ispec.controller.HelloWorldQuery
 
 fun Application.configureGraphQL() {
   install(GraphQL) {
     schema {
-      packages = listOf("com.sdp.controller")
+      packages = listOf("tech.ispec.controller")
       queries = listOf(HelloWorldQuery())
 
       schemaObject = SdpSchema()

@@ -6,7 +6,7 @@ plugins {
 
 java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
 
-group = "com.sdp"
+group = "tech.ispec"
 
 version = "0.0.1"
 

@@ -1,4 +1,4 @@
-package com.sdp
+package tech.ispec
 
 import io.ktor.server.application.*
 import org.koin.dsl.module

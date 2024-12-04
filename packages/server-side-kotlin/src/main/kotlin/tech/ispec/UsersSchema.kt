@@ -1,4 +1,4 @@
-package com.sdp
+package tech.ispec
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.Serializable
@@ -24,9 +24,9 @@ class UserService(database: Database) {
 
   suspend fun create(user: ExposedUser): Int = dbQuery {
     Users.insert {
-      it[name] = user.name
-      it[age] = user.age
-    }[Users.id]
+          it[name] = user.name
+          it[age] = user.age
+        }[Users.id]
   }
 
   suspend fun read(id: Int): ExposedUser? {

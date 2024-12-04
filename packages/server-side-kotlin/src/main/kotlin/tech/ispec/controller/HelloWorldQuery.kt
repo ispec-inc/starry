@@ -1,4 +1,4 @@
-package com.sdp.controller
+package tech.ispec.controller
 
 import com.expediagroup.graphql.server.operations.Query
 
