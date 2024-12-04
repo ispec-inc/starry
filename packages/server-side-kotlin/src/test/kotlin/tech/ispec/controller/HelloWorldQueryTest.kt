@@ -1,4 +1,4 @@
-package com.sdp.controller
+package tech.ispec.controller
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
